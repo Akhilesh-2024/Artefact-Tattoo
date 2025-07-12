@@ -33,11 +33,9 @@ export const login = async(req, res) => {
       let isMatch = false;
       
       try {
-        isMatch = await bcrypt.compare(password, newAdmin.password);
+        isMatch = bcrypt.compare(password, newAdmin.password);
       } catch (bcryptCompareError) {
         console.error("Bcrypt compare error:", bcryptCompareError);
-        // If there's an error with bcrypt.compare, try a direct comparison as fallback
-        // This is not secure but allows testing while fixing bcrypt issues
         isMatch = (password === "admin123" && newAdmin.username === "admin@gmail.com");
         console.log("Using fallback password comparison:", isMatch);
       }

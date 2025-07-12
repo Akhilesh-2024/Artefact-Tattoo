@@ -1,6 +1,9 @@
 import express from "express";
 import { login } from "../Controller/login.js";
 import { auth } from "../Middleware/auth.js";
+import multer from "multer";
+import path from "path";
+import {teamDelete, teamGet, teamPost} from "../Controller/team.js";
 
 const router = express.Router();
 
@@ -20,5 +23,24 @@ router.get('/admin/verify', auth, (req, res) => {
     }
   });
 });
+
+// Team
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "src/upload/team");
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    const filename = Date.now() + ext;
+    cb(null, filename);
+  },
+});
+
+const upload = multer({ storage });
+
+router.get('/team',teamGet);
+router.post('/team',upload.single("img"),teamPost);
+router.delete('/team/:id',teamDelete)
 
 export default router;
