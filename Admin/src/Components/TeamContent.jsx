@@ -83,9 +83,6 @@ const TeamContent = () => {
             <Users className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Team Management</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Build and manage your dream team with our intuitive interface
-          </p>
         </div>
 
         {/* Grid Layout */}

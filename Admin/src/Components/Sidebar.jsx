@@ -1,192 +1,228 @@
 import React, { useState } from 'react';
-import { 
-  Home, 
-  Users, 
-  FileText, 
-  Inbox, 
-  BarChart3, 
-  Settings, 
-  User,
-  Star,
-  Send,
-  Mail,
-  Archive,
-  Trash,
-  Menu,
-  X
+import {
+  Home, Users, FileText, Inbox, BarChart3, Settings, User,
+  Star, Send, Mail, Archive, Trash, Menu, X, Shield, Info,
+  Workflow, Calendar, Briefcase, DollarSign, BookOpen, Image,
+  Video, Building, ChevronDown, ChevronRight, Edit, Plus,
+  List, MessageSquare, Eye, Upload, Globe, Phone, Share2,
+  UserCheck, FileImage, PlayCircle, MessageCircle, Zap,
+  Target, Award
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [expandedSections, setExpandedSections] = useState({});
 
-  const primaryItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home },
-    { id: 'Team', label: 'Team', icon: Users },
-    { id: 'documents', label: 'Documents', icon: FileText },
-    { id: 'inbox', label: 'Inbox', icon: Inbox },
-    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
-    { id: 'settings', label: 'Settings', icon: Settings },
+  const menuItems = [
+    {
+      id: 'navbar',
+      label: 'Navbar',
+      icon: Menu,
+      subItems: [
+        { id: 'navbar-links', label: 'Edit Navigation Links', icon: Edit },
+        { id: 'navbar-logo', label: 'Logo & Branding', icon: Image }
+      ]
+    },
+    {
+      id: 'hero',
+      label: 'Hero Section',
+      icon: Shield,
+      subItems: [
+        { id: 'hero-main', label: 'Main Hero Content', icon: Edit },
+        { id: 'hero-about', label: 'About Hero (subsection)', icon: Info },
+        { id: 'hero-team', label: 'Team Hero (subsection)', icon: Users }
+      ]
+    },
+    {
+      id: 'about',
+      label: 'About Section',
+      icon: Info,
+      subItems: [
+        { id: 'about-content', label: 'About Content', icon: Edit },
+        { id: 'about-images', label: 'About Images', icon: Image }
+      ]
+    },
+    {
+      id: 'team',
+      label: 'Team Section',
+      icon: Users,
+      subItems: [
+        { id: 'team-members', label: 'Team Members', icon: UserCheck },
+        { id: 'team-images', label: 'Team Images', icon: Image }
+      ]
+    },
+    {
+      id: 'services',
+      label: 'Services Section',
+      icon: Briefcase,
+      subItems: [
+        { id: 'services-list', label: 'Service List', icon: List },
+        { id: 'services-details', label: 'Service Details', icon: Edit }
+      ]
+    },
+    { id: 'pricing', label: 'Pricing Section', icon: DollarSign },
+    { id: 'process', label: 'Process Section', icon: Workflow },
+    { id: 'appointment', label: 'Appointment Form', icon: Calendar },
+    {
+      id: 'blog',
+      label: 'Blog',
+      icon: BookOpen,
+      subItems: [
+        { id: 'blog-posts', label: 'Blog Posts', icon: FileText },
+        { id: 'blog-categories', label: 'Categories', icon: List }
+      ]
+    },
+    { id: 'gallery', label: 'Gallery', icon: Image },
+    {
+      id: 'videos',
+      label: 'Promo Video & Testimonials',
+      icon: Video,
+      subItems: [
+        { id: 'videos-promo', label: 'Promo Video', icon: PlayCircle },
+        { id: 'videos-testimonials', label: 'Testimonials', icon: MessageCircle }
+      ]
+    },
+    { id: 'clients', label: 'Clients Section', icon: Building },
+    {
+      id: 'footer',
+      label: 'Footer',
+      icon: Archive,
+      subItems: [
+        { id: 'footer-content', label: 'Footer Content', icon: Edit },
+        { id: 'footer-social', label: 'Social Links', icon: Share2 }
+      ]
+    }
   ];
 
-  const secondaryItems = [
-    { id: 'profile', label: 'Profile', icon: User },
-    { id: 'archive', label: 'Archive', icon: Archive },
-    { id: 'trash', label: 'Trash', icon: Trash },
-  ];
+  const toggleExpanded = () => setIsExpanded(!isExpanded);
 
-  const toggleExpanded = () => {
-    setIsExpanded(!isExpanded);
+  const toggleSection = (sectionId) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionId]: !prev[sectionId]
+    }));
+  };
+
+  const handleItemClick = (itemId) => {
+    const mainSection = menuItems.find(item => item.id === itemId);
+    if (mainSection?.subItems) toggleSection(itemId);
+    onTabChange(itemId);
   };
 
   return (
     <>
-      {/* Mobile backdrop */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
           onClick={() => onTabChange(activeTab)}
         />
       )}
 
-      {/* Sidebar */}
-      <div className={`
-        fixed left-0 top-0 h-full bg-slate-100 transform transition-all duration-300 ease-out z-50 shadow-lg
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-        md:translate-x-0 md:static md:h-auto
-        ${isExpanded ? 'w-72' : 'w-16'}
-      `} style={{ minHeight: '100vh' }}>
-        
+      <div
+        className={`
+          fixed left-0 top-0 h-full bg-slate-100 transform transition-all duration-300 ease-out z-50 shadow-lg
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+          md:translate-x-0 md:static
+          ${isExpanded ? 'w-72' : 'w-16'}
+          flex flex-col
+        `}
+      >
         {/* Header */}
         <header className="flex flex-col gap-2 p-4 border-b border-slate-200">
-          {/* Toggle Button */}
           <div className="flex justify-end">
             <button
               onClick={toggleExpanded}
-              className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-200 transition-colors duration-200 hover:outline hover:outline-2 hover:outline-blue-500"
+              className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-200 transition-colors duration-200"
             >
-              {isExpanded ? (
-                <X size={18} className="text-slate-600" />
-              ) : (
-                <Menu size={18} className="text-slate-600" />
-              )}
+              {isExpanded ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
-
-          {/* Logo/Profile Section */}
           <div className="flex flex-col items-center gap-1.5">
             <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-              <div className="w-5 h-5 bg-white rounded-sm opacity-90"></div>
+              <div className="w-5 h-5 bg-white rounded-sm opacity-90" />
             </div>
             {isExpanded && (
               <div className="text-center transition-opacity duration-300 delay-200">
-                <p className="text-slate-700 font-medium text-sm">MyApp</p>
-                <p className="text-slate-500 text-xs font-medium">Admin</p>
+                <p className="text-slate-700 font-medium text-sm">Admin Panel</p>
+                <p className="text-slate-500 text-xs font-medium">Content Management</p>
               </div>
             )}
           </div>
         </header>
 
         {/* Navigation */}
-        <nav className="flex flex-col gap-2 p-4">
-          {/* Primary Section */}
-          <div className="flex flex-col gap-0.5">
-            {isExpanded && (
-              <h2 className="text-xs uppercase font-medium text-slate-500 mb-2 transition-opacity duration-300 delay-200">
-                General
-              </h2>
-            )}
-            {primaryItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => onTabChange(item.id)}
-                  className={`
-                    flex items-center gap-2 h-9 px-2 rounded-lg transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-blue-500 text-left w-full
-                    ${activeTab === item.id 
-                      ? 'bg-blue-100 border-r-4 border-blue-500 text-blue-700' 
-                      : 'hover:bg-slate-200 text-slate-700'
-                    }
-                  `}
-                >
-                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                    <Icon 
-                      size={18} 
-                      className={`
-                        transition-colors duration-200
-                        ${activeTab === item.id 
-                          ? 'text-blue-600' 
-                          : 'text-slate-600 group-hover:text-blue-500'
-                        }
-                      `} 
-                    />
-                  </div>
-                  {isExpanded && (
-                    <span className={`
-                      text-sm font-medium transition-colors duration-200
-                      ${activeTab === item.id 
-                        ? 'text-blue-700' 
-                        : 'text-slate-700 group-hover:text-slate-900'
-                      }
-                    `}>
-                      {item.label}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
+        <nav className="flex-1 overflow-y-auto px-4 pb-4">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id || (item.subItems && item.subItems.some(sub => sub.id === activeTab));
+            const isSectionExpanded = expandedSections[item.id];
 
-          {/* Secondary Section */}
-          <div className="flex flex-col gap-0.5 mt-4">
-            {isExpanded && (
-              <h2 className="text-xs uppercase font-medium text-slate-500 mb-2 transition-opacity duration-300 delay-200">
-                Other
-              </h2>
-            )}
-            {secondaryItems.map((item) => {
-              const Icon = item.icon;
-              return (
+            return (
+              <div key={item.id} className="flex flex-col">
                 <button
-                  key={item.id}
-                  onClick={() => onTabChange(item.id)}
+                  onClick={() => handleItemClick(item.id)}
                   className={`
-                    flex items-center gap-2 h-9 px-2 rounded-lg transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-blue-500 text-left w-full
-                    ${activeTab === item.id 
-                      ? 'bg-blue-100 border-r-4 border-blue-500 text-blue-700' 
+                    flex items-center gap-2 h-10 px-2 rounded-lg transition-all duration-200 group text-left w-full
+                    ${isActive
+                      ? 'bg-blue-100 border-r-4 border-blue-500 text-blue-700'
                       : 'hover:bg-slate-200 text-slate-700'
                     }
                   `}
                 >
-                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                    <Icon 
-                      size={18} 
-                      className={`
-                        transition-colors duration-200
-                        ${activeTab === item.id 
-                          ? 'text-blue-600' 
-                          : 'text-slate-600 group-hover:text-blue-500'
-                        }
-                      `} 
-                    />
+                  <div className="w-5 h-5 flex items-center justify-center">
+                    <Icon size={18} className={`${isActive ? 'text-blue-600' : 'text-slate-600 group-hover:text-blue-500'}`} />
                   </div>
                   {isExpanded && (
-                    <span className={`
-                      text-sm font-medium transition-colors duration-200
-                      ${activeTab === item.id 
-                        ? 'text-blue-700' 
-                        : 'text-slate-700 group-hover:text-slate-900'
-                      }
-                    `}>
-                      {item.label}
-                    </span>
+                    <>
+                      <span className={`text-sm font-medium flex-1 ${isActive ? 'text-blue-700' : 'text-slate-700 group-hover:text-slate-900'}`}>
+                        {item.label}
+                      </span>
+                      {item.subItems && (
+                        <div className="w-4 h-4 flex items-center justify-center">
+                          {isSectionExpanded
+                            ? <ChevronDown size={14} className="text-slate-500" />
+                            : <ChevronRight size={14} className="text-slate-500" />
+                          }
+                        </div>
+                      )}
+                    </>
                   )}
                 </button>
-              );
-            })}
-          </div>
+
+                {/* Sub Items */}
+                {item.subItems && isSectionExpanded && isExpanded && (
+                  <div className="ml-4 mt-1 border-l border-slate-200 pl-4">
+                    {item.subItems.map((subItem) => {
+                      const SubIcon = subItem.icon;
+                      const isSubActive = activeTab === subItem.id;
+
+                      return (
+                        <button
+                          key={subItem.id}
+                          onClick={() => onTabChange(subItem.id)}
+                          className={`
+                            flex items-center gap-2 h-8 px-2 rounded-md transition-all duration-200 group text-left w-full mb-1
+                            ${isSubActive
+                              ? 'bg-blue-50 text-blue-700 border-l-2 border-blue-500'
+                              : 'hover:bg-slate-150 text-slate-600'
+                            }
+                          `}
+                        >
+                          <div className="w-4 h-4 flex items-center justify-center">
+                            <SubIcon size={14} className={`${isSubActive ? 'text-blue-600' : 'text-slate-500 group-hover:text-blue-500'}`} />
+                          </div>
+                          <span className={`text-xs font-medium ${isSubActive ? 'text-blue-700' : 'text-slate-600 group-hover:text-slate-800'}`}>
+                            {subItem.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </nav>
-
       </div>
     </>
   );
