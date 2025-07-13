@@ -40,7 +40,7 @@ const HeroBanner = () => {
   useEffect(() => {
     if (sectionRef.current) {
       // Prepend the server URL to the background path
-      const serverUrl = 'http://localhost:5001'; // Update this to match your server URL
+      const serverUrl = import.meta.env.VITE_API_URL; // Update this to match your server URL
       const bgUrl = heroData.background 
         ? `${serverUrl}${heroData.background}?t=${new Date().getTime()}`
         : '/path/to/default/hero-image.jpg'; // Add a default fallback

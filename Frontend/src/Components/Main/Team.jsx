@@ -103,7 +103,7 @@ const Team = () => {
                 {team.map((member) => (
                 <div className="item right" key={member._id}>
                 <figure>
-                  <img src={`http://localhost:5001${member.img}`} alt="" className="img-fluid team-img-fix" />
+                  <img src={`${import.meta.env.VITE_API_URL}${member.img}`} alt="" className="img-fluid team-img-fix" />
                 </figure>
                 <div className="caption padding-left">
                   <div className="name">{member.name}</div>

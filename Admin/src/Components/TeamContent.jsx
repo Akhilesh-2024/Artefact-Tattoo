@@ -78,7 +78,7 @@ const TeamContent = () => {
       subname: member.subname,
       info: member.info,
     });
-    setPreview(`http://localhost:5001${member.img}`);
+    setPreview(`${import.meta.env.VITE_API_URL}${member.img}`);
     window.scrollTo({ top: 0, behavior: 'smooth' }); // Optional: scroll to form
   };
 
@@ -203,7 +203,7 @@ const TeamContent = () => {
                     <div key={member._id} className="bg-gray-50 rounded-xl p-6 border hover:shadow-lg">
                       <div className="flex flex-col sm:flex-row gap-6">
                         <div className="flex-shrink-0">
-                          <img src={`http://localhost:5001${member.img}`} alt={member.name}
+                          <img src={`${import.meta.env.VITE_API_URL}${member.img}`} alt={member.name}
                             className="w-24 h-24 object-cover rounded-xl border-4 border-white shadow-lg" />
                         </div>
                         <div className="flex-1 min-w-0">

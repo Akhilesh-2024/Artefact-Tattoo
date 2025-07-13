@@ -34,8 +34,8 @@ const AdminHeroBanner = () => {
 
         if (hero.background) {
           // Make sure we're using the correct URL
-          setPreview(`http://localhost:5001${hero.background}`);
-          console.log("Hero background URL:", `http://localhost:5001${hero.background}`);
+          setPreview(`${import.meta.env.VITE_API_URL}${hero.background}`);
+          console.log("Hero background URL:", `${import.meta.env.VITE_API_URL}${hero.background}`);
         }
 
         setIsNew(false);
@@ -83,7 +83,7 @@ const AdminHeroBanner = () => {
       
       // Update the state instead of reloading the page
       if (response.data && response.data.background) {
-        setPreview(`http://localhost:5001${response.data.background}`);
+        setPreview(`${import.meta.env.VITE_API_URL}${response.data.background}`);
       }
       setBackground(null); // Clear the file input
       setIsNew(false); // Mark as existing record

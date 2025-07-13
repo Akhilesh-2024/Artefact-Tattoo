@@ -102,7 +102,7 @@ const TeamPage = () => {
                   <div className="item right">
                     <figure>
                       <img 
-                        src={`http://localhost:5001${member.img}`} 
+                        src={`${import.meta.env.VITE_API_URL}${member.img}`} 
                         alt={member.name} 
                         className="img-fluid team-img-fix" 
                       />

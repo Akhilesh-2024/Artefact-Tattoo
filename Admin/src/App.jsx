@@ -6,7 +6,7 @@ import AdminDashboard from "./Pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 // Set base URL for axios
-axios.defaults.baseURL = "http://localhost:5001"; // Adjust this to your backend URL
+axios.defaults.baseURL = import.meta.env.VITE_API_URL; // Adjust this to your backend URL
 
 const App = () => {
   useEffect(() => {
