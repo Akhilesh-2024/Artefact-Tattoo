@@ -4,7 +4,7 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import { connectDB } from "./Database/database.js";
-import adminRoutes from "./Routes/admin.js"
+import router from "./Routes/routers.js"
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -17,7 +17,7 @@ connectDB();
 
 const port = process.env.PORT;
 
-app.use("/api/tatto", adminRoutes);
+app.use("/api/tatto", router);
 
 app.listen(port, () => {
   console.log("Backend Running on port :",port);
