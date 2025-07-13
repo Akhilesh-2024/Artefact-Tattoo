@@ -1,14 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X, Bell, Search, User, LogOut, ChevronDown, Settings } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ onToggleSidebar, isSidebarOpen }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const profileRef = useRef(null);
 
+  const navigate = useNavigate();
+
   const handleLogout = () => {
-    // Add your logout logic here
-    console.log('Logging out...');
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  navigate('/tatto/admin/login');
   };
 
   const handleSearch = (e) => {

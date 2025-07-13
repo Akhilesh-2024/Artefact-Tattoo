@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
-import DashboardContent from '../components/DashboardContent';
 import TeamContent from '../Components/TeamContent';
+import DashboardContent from '../Components/DashboardContent';
+import Sidebar from '../Components/Sidebar';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -29,18 +29,24 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Header onToggleSidebar={handleToggleSidebar} isSidebarOpen={isSidebarOpen} />
-      <div className="flex">
+    <div className="h-screen flex flex-col">
+      {/* Fixed header */}
+      <div className="fixed top-0 w-full z-50">
+        <Header onToggleSidebar={handleToggleSidebar} isSidebarOpen={isSidebarOpen} />
+      </div>
+
+      {/* Content below header */}
+      <div className="flex flex-1 pt-16 overflow-hidden">
+        {/* Sidebar */}
         <Sidebar 
           isOpen={isSidebarOpen} 
           activeTab={activeTab} 
           onTabChange={handleTabChange} 
         />
-        <main className={`flex-1 transition-all duration-300 ${isSidebarOpen ? 'md:ml-72' : 'md:ml-16'}`}>
-          <div className="w-full">
-            {renderContent()}
-          </div>
+
+        {/* Main content scrolls */}
+        <main className="flex-1 overflow-y-auto bg-gray-100 p-4">
+          {renderContent()}
         </main>
       </div>
     </div>

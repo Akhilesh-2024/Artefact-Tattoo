@@ -1,12 +1,31 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PromoVideoTestimonials from "../Components/Main/PromoVideoTestimonials";
 import Clients from "../Components/Main/Clients";
+import axios from "axios";
 
 const TeamPage = () => {
   const bannerRef = useRef(null);
+  const [team, setTeam] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch team data from API
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get('/api/tatto/team');
+        setTeam(res.data);
+      } catch (error) {
+        console.error("Error fetching team:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTeam();
+  }, []);
   
-  // Initialize background image when component mounts
+  // Initialize background image and scripts when component mounts
   useEffect(() => {
     if (bannerRef.current) {
       const section = bannerRef.current;
@@ -65,51 +84,42 @@ const TeamPage = () => {
       <section className="team section-padding">
         <div className="container">
           <div className="row">
-            <div className="col-md-12 mb-60 animate-box" data-animate-effect="fadeInUp">
-              <div className="item right">
-                <figure><img src="img/team/7.jpg" alt="" className="img-fluid" /></figure>
-                <div className="caption padding-left">
-                  <div className="name">Andreas Martin</div>
-                  <div className="subname">Piercing Artist</div>
-                  <p>
-                    Tattoo aliquet miss orci elit gene on tristique in the dream vitaen aliuam lorem tincidunt felis sed gravida aliquam the neque miss blue hendren mavition duru sapien mana amenta the mollis.
-                  </p>
-                  <Link to="/team-details" className="btn-curve btn-1 mt-10">
-                    <span>View Details</span>
-                  </Link>
+            {loading ? (
+              <div className="col-md-12 text-center">
+                <div className="loading-spinner">
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                  <p className="mt-3">Loading team members...</p>
                 </div>
               </div>
-            </div>
-            <div className="col-md-12 mb-60 animate-box" data-animate-effect="fadeInUp">
-              <div className="item right">
-                <figure><img src="img/team/8.jpg" alt="" className="img-fluid" /></figure>
-                <div className="caption padding-left">
-                  <div className="name">Daniel Brown</div>
-                  <div className="subname">Tattoo Artist</div>
-                  <p>
-                    Tattoo aliquet miss orci elit gene on tristique in the dream vitaen aliuam lorem tincidunt felis sed gravida aliquam the neque miss blue hendren mavition duru sapien mana amenta the mollis.
-                  </p>
-                  <Link to="/team-details" className="btn-curve btn-1 mt-10">
-                    <span>View Details</span>
-                  </Link>
+            ) : (
+              team.map((member) => (
+                <div 
+                  key={member._id}
+                  className="col-md-12 mb-60 animate-box" 
+                  data-animate-effect="fadeInUp"
+                >
+                  <div className="item right">
+                    <figure>
+                      <img 
+                        src={`http://localhost:5001${member.img}`} 
+                        alt={member.name} 
+                        className="img-fluid" 
+                      />
+                    </figure>
+                    <div className="caption padding-left">
+                      <div className="name">{member.name}</div>
+                      <div className="subname">{member.subname}</div>
+                      <p>{member.info}</p>
+                      <Link to="/team-details" className="btn-curve btn-1 mt-10">
+                        <span>View Details</span>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="col-md-12 animate-box" data-animate-effect="fadeInUp">
-              <div className="item right">
-                <figure><img src="img/team/9.jpg" alt="" className="img-fluid" /></figure>
-                <div className="caption padding-left">
-                  <div className="name">Jason White</div>
-                  <div className="subname">Tattoo Artist</div>
-                  <p>
-                    Tattoo aliquet miss orci elit gene on tristique in the dream vitaen aliuam lorem tincidunt felis sed gravida aliquam the neque miss blue hendren mavition duru sapien mana amenta the mollis.
-                  </p>
-                  <Link to="/team-details" className="btn-curve btn-1 mt-10">
-                    <span>View Details</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
+              ))
+            )}
           </div>
         </div>
       </section>

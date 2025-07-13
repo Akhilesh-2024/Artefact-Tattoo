@@ -187,22 +187,6 @@ const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
           </div>
         </nav>
 
-        {/* User Profile - Bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-200">
-          <button
-            className="w-full flex items-center hover:bg-slate-200 rounded-lg p-2 transition-colors group"
-          >
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-              <User size={16} className="text-white" />
-            </div>
-            {isExpanded && (
-              <div className="ml-3 transition-opacity duration-300 delay-200">
-                <p className="text-sm font-medium text-slate-700">John Doe</p>
-                <p className="text-xs text-slate-500">admin@example.com</p>
-              </div>
-            )}
-          </button>
-        </div>
       </div>
     </>
   );

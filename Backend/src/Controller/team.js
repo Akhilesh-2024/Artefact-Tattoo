@@ -1,4 +1,6 @@
 import { team } from "../Database/database.js";
+import fs from "fs";
+import path from "path";
 
 export const teamGet = async(req,res) => {
   try {
@@ -28,19 +30,32 @@ export const teamPost = async(req,res) => {
   }
 }
 
-export const teamDelete = async(req,res) => {
+export const teamDelete = async (req, res) => {
   try {
     const { id } = req.params;
-    const deleteMember = await team.findByIdAndDelete(id);
 
+    const deleteMember = await team.findById(id);
     if (!deleteMember) {
       return res.status(404).json({ message: "Team member not found" });
     }
 
-    res.status(200).json({ message: "Team member deleted successfully" });
+    // Delete the image file if it exists
+    if (deleteMember.img) {
+      const fullPath = path.join(process.cwd(), "src", deleteMember.img); // Use correct base path
+
+      if (fs.existsSync(fullPath)) {
+        fs.unlinkSync(fullPath);
+        console.log("Deleted file:", fullPath);
+      }
+    }
+
+    // Delete the DB record
+    await team.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "Team member and image deleted successfully" });
 
   } catch (error) {
-    console.log(error);
+    console.error("Delete error:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-}
+};
