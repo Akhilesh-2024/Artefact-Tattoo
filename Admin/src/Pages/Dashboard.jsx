@@ -4,6 +4,7 @@ import Sidebar from '../Components/Sidebar';
 import DashboardContent from '../Components/DashboardContent';
 import TeamContent from '../Components/TeamContent';
 import AdminHeroBanner from '../Components/HeroBanner';
+import AdminAbout from '../Components/About';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -42,9 +43,11 @@ const Dashboard = () => {
 
       // About Section
       case 'about':
+        return <AdminAbout />;
       case 'about-content':
+        return <AdminAbout />;
       case 'about-images':
-        return <DashboardContent />;
+        return <AdminAbout />;
 
       // Team Section
       case 'team':

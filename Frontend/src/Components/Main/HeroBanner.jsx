@@ -19,8 +19,6 @@ const HeroBanner = () => {
         const res = await axios.get('/api/tatto/hero');
         const hero = res.data;
         
-        console.log('Hero data received:', hero); // Log the data received from the API
-        
         setHeroData({
           background: hero.background || '',
           headingLine1: hero.headingLine1 || '',
@@ -45,8 +43,6 @@ const HeroBanner = () => {
         ? `${serverUrl}${heroData.background}?t=${new Date().getTime()}`
         : '/path/to/default/hero-image.jpg'; // Add a default fallback
       
-      console.log('Hero background URL:', bgUrl); // For debugging
-
       sectionRef.current.style.backgroundImage = `url(${bgUrl})`;
 
       if (window.jQuery) {
