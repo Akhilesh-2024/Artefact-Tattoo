@@ -6,7 +6,7 @@ import TeamContent from '../Components/TeamContent';
 import AdminHeroBanner from '../Components/HeroBanner';
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState('navbar');
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleTabChange = (tab) => {

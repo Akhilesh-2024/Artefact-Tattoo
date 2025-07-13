@@ -187,7 +187,7 @@ const TeamContent = () => {
                     </div>
                     <h2 className="text-2xl font-bold text-white">Team Members</h2>
                   </div>
-                  <div className="bg-white bg-opacity-20 rounded-full px-4 py-2">
+                  <div className="bg-white bg-opacity-20 rounded-full px-4 py-2 text-center">
                     <span className="font-semibold">{teamList.length} Members</span>
                   </div>
                 </div>
@@ -213,7 +213,7 @@ const TeamContent = () => {
                               <p className="text-blue-600 mb-2">{member.subname}</p>
                               <p className="text-gray-700">{member.info}</p>
                             </div>
-                            <div className="flex gap-2">
+                            <div className="flex flex-col gap-2">
                               <button onClick={() => handleEditClick(member)}
                                 className="p-2 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg"
                                 title="Edit">

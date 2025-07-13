@@ -179,7 +179,7 @@ const AdminHeroBanner = () => {
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 bg-gray-50 focus:bg-white"
                 />
               </div>
-              
+
               {/* Heading Line 1 */}
               <div className="group">
                 <label className="flex items-center gap-2 font-semibold text-gray-700 mb-3">
@@ -381,7 +381,7 @@ const AdminHeroBanner = () => {
                         e.target.nextSibling.style.display = 'flex';
                       }}
                     />
-                    <div className="absolute inset-0 bg-gray-200 flex items-center justify-center hidden">
+                    <div className="absolute inset-0 bg-gray-200 items-center justify-center hidden">
                       <div className="text-center">
                         <ImageIcon className="w-12 h-12 text-gray-400 mx-auto mb-2" />
                         <p className="text-gray-500">Image failed to load</p>
