@@ -5170,3 +5170,10 @@ select {
 [data-overlay-light="10"]:before {
     opacity: 1;
 }
+
+.team-img-fix {
+  width: 100%;
+  height: 558px;         /* or any fixed height you want */
+  object-fit: cover;
+  object-position: center;
+}

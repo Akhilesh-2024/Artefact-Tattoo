@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Sidebar from '../Components/Sidebar';
 import DashboardContent from '../Components/DashboardContent';
 import TeamContent from '../Components/TeamContent';
+import AdminHeroBanner from '../Components/HeroBanner';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('navbar');
@@ -21,6 +22,8 @@ const Dashboard = () => {
     // For now, all routes will show DashboardContent except team
     // You can replace these with actual components as you create them
     switch (activeTab) {
+      case 'dashboard':
+        return <DashboardContent />;
       // Navbar Section
       case 'navbar':
       case 'navbar-links':
@@ -29,8 +32,11 @@ const Dashboard = () => {
 
       // Hero Section
       case 'hero':
+        return <AdminHeroBanner />;
       case 'hero-main':
+        return <AdminHeroBanner />;
       case 'hero-about':
+        return <DashboardContent />;
       case 'hero-team':
         return <DashboardContent />;
 
@@ -101,6 +107,7 @@ const Dashboard = () => {
   // Function to get page title based on active tab
   const getPageTitle = () => {
     const titleMap = {
+      'dashboard': 'Dashboard',
       // Navbar
       'navbar': 'Navbar',
       'navbar-links': 'Edit Navigation Links',

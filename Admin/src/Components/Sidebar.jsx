@@ -14,6 +14,7 @@ const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
   const [expandedSections, setExpandedSections] = useState({});
 
   const menuItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: Home },
     {
       id: 'navbar',
       label: 'Navbar',

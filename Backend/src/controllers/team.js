@@ -53,3 +53,40 @@ export const teamDelete = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const teamEdit = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, subname, info } = req.body;
+
+    const existingMember = await team.findById(id);
+    if (!existingMember) {
+      return res.status(404).json({ message: "Team member not found" });
+    }
+
+    let updatedImagePath = existingMember.img;
+    if (req.file) {
+      if (existingMember.img) {
+        const oldImagePath = path.join(process.cwd(), "src", existingMember.img);
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath);
+          console.log("Old image deleted:", oldImagePath);
+        }
+      }
+
+      updatedImagePath = `/upload/team/${req.file.filename}`;
+    }
+
+    existingMember.name = name;
+    existingMember.subname = subname;
+    existingMember.info = info;
+    existingMember.img = updatedImagePath;
+
+    await existingMember.save();
+
+    res.status(200).json({ message: "Team member updated successfully" });
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

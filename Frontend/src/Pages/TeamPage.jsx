@@ -104,7 +104,7 @@ const TeamPage = () => {
                       <img 
                         src={`http://localhost:5001${member.img}`} 
                         alt={member.name} 
-                        className="img-fluid" 
+                        className="img-fluid team-img-fix" 
                       />
                     </figure>
                     <div className="caption padding-left">

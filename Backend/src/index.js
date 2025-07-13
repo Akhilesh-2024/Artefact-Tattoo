@@ -12,7 +12,12 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 app.use(cors());
 app.use(express.json());
+// Serve files from both Upload and upload directories to handle case sensitivity
+app.use("/upload", express.static(path.join(__dirname, "Upload")));
 app.use("/upload", express.static(path.join(__dirname, "upload")));
+// Also serve from /uploads path to handle plural form
+app.use("/uploads", express.static(path.join(__dirname, "Upload")));
+app.use("/uploads", express.static(path.join(__dirname, "upload")));
 connectDB();
 
 const port = process.env.PORT;
