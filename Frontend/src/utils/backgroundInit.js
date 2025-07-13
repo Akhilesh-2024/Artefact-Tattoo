@@ -13,7 +13,6 @@ export const initBackgroundImages = () => {
     if (bgImage) {
       // Set the background image
       element.style.backgroundImage = `url(${bgImage})`;
-      console.log(`Background image set for element: ${bgImage}`);
     }
   });
 };

@@ -9,7 +9,6 @@ import Clients from "../Components/Main/Clients";
 const AboutPage = () => {
   // Initialize scripts when component mounts
   useEffect(() => {
-    console.log("AboutPage mounted");
     
     // Force re-initialization of scripts specific to about page
     setTimeout(() => {
@@ -30,7 +29,6 @@ const AboutPage = () => {
     
     // Cleanup function
     return () => {
-      console.log("AboutPage unmounted");
     };
   }, []);
   

@@ -4,7 +4,6 @@
  * @param {string} path - The current path
  */
 window.initPageScripts = function(path) {
-  console.log("Initializing page scripts for path:", path || window.location.pathname);
   
   if (window.jQuery) {
     const $ = window.jQuery;
@@ -159,9 +158,6 @@ window.initPageScripts = function(path) {
     const currentPath = path || window.location.pathname;
     $('.navbar-nav .nav-link').removeClass('active');
     if (currentPath === '/') {
-      
-      // Special handling for home page
-      console.log("Special handling for home page");
       
       // Make sure the hero banner is visible
       $('.banner-header').css('opacity', '1');

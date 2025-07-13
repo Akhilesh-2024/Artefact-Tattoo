@@ -13,7 +13,6 @@ const AboutHeroSection = () => {
       
       if (bgImage) {
         section.style.backgroundImage = `url(${bgImage})`;
-        console.log("AboutHeroSection background set to:", bgImage);
       }
       
       // Initialize animations if jQuery is available

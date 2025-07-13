@@ -18,7 +18,6 @@ const NotFound = () => {
     }
     
     // Initialize scripts when component mounts
-    console.log("NotFound page mounted");
     
     // Force re-initialization of scripts
     setTimeout(() => {
@@ -29,7 +28,7 @@ const NotFound = () => {
     
     // Cleanup function
     return () => {
-      console.log("NotFound page unmounted");
+      // Cleanup code if needed
     };
   }, []);
   

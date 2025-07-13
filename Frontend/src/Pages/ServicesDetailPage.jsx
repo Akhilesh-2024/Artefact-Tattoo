@@ -18,7 +18,6 @@ const ServicesDetailPage = () => {
     }
     
     // Initialize scripts when component mounts
-    console.log("ServicesDetailPage mounted");
     
     // Force re-initialization of scripts
     setTimeout(() => {
@@ -46,7 +45,7 @@ const ServicesDetailPage = () => {
     
     // Cleanup function
     return () => {
-      console.log("ServicesDetailPage unmounted");
+      // Cleanup code if needed
     };
   }, []);
   

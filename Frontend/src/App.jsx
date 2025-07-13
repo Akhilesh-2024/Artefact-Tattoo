@@ -18,7 +18,7 @@ import ComingSoonPage from "./Pages/ComingSoonPage";
 import Preloader from "./Components/Main/Preloader";
 import Footer from "./Components/Main/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ScrollAndScripts from "./components/ScrollAndScripts";
+import ScrollAndScripts from './Components/ScrollAndScripts';
 
 const App = () => {
   // State to track if the app has been initialized
@@ -26,8 +26,6 @@ const App = () => {
   
   // Initialize scripts on first load
   useEffect(() => {
-    console.log("App component mounted");
-    
     // Set a flag in localStorage to track page refreshes
     const isFirstLoad = !localStorage.getItem('app_initialized');
     if (isFirstLoad) {
@@ -47,7 +45,7 @@ const App = () => {
     
     // Cleanup function
     return () => {
-      console.log("App component unmounted");
+      // Cleanup code if needed
     };
   }, []);
 

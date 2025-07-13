@@ -17,9 +17,6 @@ const AftercarePage = () => {
       }
     }
     
-    // Initialize scripts when component mounts
-    console.log("AftercarePage mounted");
-    
     // Force re-initialization of scripts
     setTimeout(() => {
       if (typeof window.initPageScripts === 'function') {
@@ -29,7 +26,6 @@ const AftercarePage = () => {
     
     // Cleanup function
     return () => {
-      console.log("AftercarePage unmounted");
     };
   }, []);
   

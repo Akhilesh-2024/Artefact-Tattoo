@@ -16,8 +16,6 @@ const ScrollAndScripts = () => {
     
     // Re-run custom JS with a slight delay to ensure DOM is updated
     timeouts.push(setTimeout(() => {
-      console.log("Route changed to:", location.pathname);
-      
       // Re-initialize background images
       const pageSection = document.querySelectorAll(".bg-img, section");
       pageSection.forEach((section) => {
@@ -35,7 +33,6 @@ const ScrollAndScripts = () => {
     // Add a second timeout with a longer delay as a fallback
     timeouts.push(setTimeout(() => {
       if (typeof window.initPageScripts === 'function') {
-        console.log("Running second initialization for path:", location.pathname);
         window.initPageScripts(location.pathname);
       }
     }, 500));

@@ -26,7 +26,6 @@ const ContactPage = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
     // Here you would typically send the data to a server
     // For now, we'll just show a success message
     setFormSuccess(true);
@@ -54,7 +53,6 @@ const ContactPage = () => {
     }
     
     // Initialize scripts when component mounts
-    console.log("ContactPage mounted");
     
     // Force re-initialization of scripts
     setTimeout(() => {
@@ -65,7 +63,7 @@ const ContactPage = () => {
     
     // Cleanup function
     return () => {
-      console.log("ContactPage unmounted");
+      // Cleanup code if needed
     };
   }, []);
   

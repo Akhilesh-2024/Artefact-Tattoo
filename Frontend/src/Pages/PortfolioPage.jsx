@@ -18,7 +18,6 @@ const PortfolioPage = () => {
     }
     
     // Initialize scripts when component mounts
-    console.log("PortfolioPage mounted");
     
     // Force re-initialization of scripts
     setTimeout(() => {
@@ -55,7 +54,7 @@ const PortfolioPage = () => {
     
     // Cleanup function
     return () => {
-      console.log("PortfolioPage unmounted");
+      // Cleanup code if needed
     };
   }, []);
   

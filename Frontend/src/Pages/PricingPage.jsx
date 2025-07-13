@@ -18,7 +18,6 @@ const PricingPage = () => {
     }
     
     // Initialize scripts when component mounts
-    console.log("PricingPage mounted");
     
     // Force re-initialization of scripts
     setTimeout(() => {
@@ -29,7 +28,7 @@ const PricingPage = () => {
     
     // Cleanup function
     return () => {
-      console.log("PricingPage unmounted");
+      // Cleanup code if needed
     };
   }, []);
   

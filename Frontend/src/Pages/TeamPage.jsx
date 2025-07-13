@@ -37,7 +37,6 @@ const TeamPage = () => {
     }
     
     // Initialize scripts when component mounts
-    console.log("TeamPage mounted");
     
     // Force re-initialization of scripts
     setTimeout(() => {
@@ -48,7 +47,7 @@ const TeamPage = () => {
     
     // Cleanup function
     return () => {
-      console.log("TeamPage unmounted");
+      // Cleanup code if needed
     };
   }, []);
   

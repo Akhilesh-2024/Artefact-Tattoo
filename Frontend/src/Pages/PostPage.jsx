@@ -24,7 +24,6 @@ const PostPage = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Comment submitted:', formData);
     // Here you would typically send the data to a server
     // For now, we'll just show a success message
     setFormSuccess(true);
@@ -50,7 +49,6 @@ const PostPage = () => {
     }
     
     // Initialize scripts when component mounts
-    console.log("PostPage mounted");
     
     // Force re-initialization of scripts
     setTimeout(() => {
@@ -61,7 +59,7 @@ const PostPage = () => {
     
     // Cleanup function
     return () => {
-      console.log("PostPage unmounted");
+      // Cleanup code if needed
     };
   }, []);
   

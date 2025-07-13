@@ -18,7 +18,6 @@ const BlogPage = () => {
     }
     
     // Initialize scripts when component mounts
-    console.log("BlogPage mounted");
     
     // Force re-initialization of scripts
     setTimeout(() => {
@@ -29,7 +28,7 @@ const BlogPage = () => {
     
     // Cleanup function
     return () => {
-      console.log("BlogPage unmounted");
+      // Cleanup code if needed
     };
   }, []);
   

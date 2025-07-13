@@ -14,7 +14,6 @@ import Team from "../Components/Main/Team";
 const IndexPage = () => {
   // Initialize scripts when component mounts
   useEffect(() => {
-    console.log("IndexPage mounted");
     
     // Force re-initialization of scripts specific to home page
     setTimeout(() => {
@@ -35,7 +34,6 @@ const IndexPage = () => {
     
     // Cleanup function
     return () => {
-      console.log("IndexPage unmounted");
     };
   }, []);
   

@@ -19,7 +19,6 @@ const ComingSoonPage = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Subscribed with email:', email);
     // Here you would typically send the email to a server
     alert('Thank you for subscribing!');
     setEmail('');

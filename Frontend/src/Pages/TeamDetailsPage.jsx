@@ -18,7 +18,6 @@ const TeamDetailsPage = () => {
     }
     
     // Initialize scripts when component mounts
-    console.log("TeamDetailsPage mounted");
     
     // Force re-initialization of scripts
     setTimeout(() => {
@@ -64,7 +63,7 @@ const TeamDetailsPage = () => {
     
     // Cleanup function
     return () => {
-      console.log("TeamDetailsPage unmounted");
+      // Cleanup code if needed
     };
   }, []);
   

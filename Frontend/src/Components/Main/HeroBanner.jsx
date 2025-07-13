@@ -12,7 +12,6 @@ const HeroBanner = () => {
       
       if (bgImage) {
         section.style.backgroundImage = `url(${bgImage})`;
-        console.log("HeroBanner background set to:", bgImage);
       }
       
       // Initialize animations if jQuery is available

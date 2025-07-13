@@ -18,7 +18,6 @@ const FaqsPage = () => {
     }
     
     // Initialize scripts when component mounts
-    console.log("FaqsPage mounted");
     
     // Force re-initialization of scripts
     setTimeout(() => {
@@ -52,7 +51,7 @@ const FaqsPage = () => {
     
     // Cleanup function
     return () => {
-      console.log("FaqsPage unmounted");
+      // Cleanup code if needed
     };
   }, []);
   
