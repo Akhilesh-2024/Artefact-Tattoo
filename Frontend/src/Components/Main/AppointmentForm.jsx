@@ -11,7 +11,7 @@ const AppointmentForm = () => {
           <div className="row justify-content-center">
             <div className="col-md-5 section-head">
               <div className="section-subtitle">Book Your Tattoo</div>
-              <div className="section-title white">Appointment</div>
+              <div className="section-title white" style={{color:"white"}}>Appointment</div>
               <p>
                 Tattoo viverra tristique usto duis vitae diam neque nivamus
                 aestan atene artine arinianu ateli finibus viverra nec lacus.
