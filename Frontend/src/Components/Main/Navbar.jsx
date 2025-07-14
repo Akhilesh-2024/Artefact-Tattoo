@@ -1,48 +1,160 @@
-import { Link, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Navbar = () => {
   const location = useLocation();
-  
-  // Function to handle active links
+  const [navbarData, setNavbarData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch navbar data from API
   useEffect(() => {
-    // Update active class based on current path
+    const fetchNavbar = async () => {
+      try {
+        const response = await axios.get("/api/tatto/navbar");
+        setNavbarData(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchNavbar();
+  }, []);
+
+  // Handle active links
+  useEffect(() => {
+    if (loading || error) return;
+
     const currentPath = location.pathname;
-    
-    // Remove active class from all links
-    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-      link.classList.remove('active');
+    document.querySelectorAll(".nav-link").forEach((link) => {
+      link.classList.remove("active");
     });
-    
-    // Add active class to current link
-    let activeLink;
-    if (currentPath === '/') {
-      activeLink = document.querySelector('.navbar-nav .nav-link[href="/"]');
-    } else {
-      activeLink = document.querySelector(`.navbar-nav .nav-link[href="${currentPath}"]`);
-    }
-    
+
+    const activeLink = document.querySelector(
+      `.nav-link[href="${currentPath}"]`
+    );
     if (activeLink) {
-      activeLink.classList.add('active');
+      activeLink.classList.add("active");
     }
-  }, [location]);
-  
+  }, [location, loading, error]);
+
+  // Render dropdown menu
+  const renderDropdown = (navItem) => {
+    return (
+      <li className="nav-item dropdown" key={navItem._id || navItem.label}>
+        <Link
+          className={`nav-link dropdown-toggle ${
+            navItem.subItems.some(
+              (subItem) =>
+                subItem.path === location.pathname ||
+                (subItem.children &&
+                  subItem.children.some(
+                    (child) => child.path === location.pathname
+                  ))
+            )
+              ? "active"
+              : ""
+          }`}
+          to="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          {navItem.label} <i className="ti-angle-down" />
+        </Link>
+        <ul className="dropdown-menu">
+          {navItem.subItems.map((subItem) => (
+            <li key={subItem._id || subItem.label}>
+              {subItem.children && subItem.children.length > 0 ? (
+                <>
+                  <Link
+                    className={`dropdown-item dropdown-toggle ${
+                      subItem.children.some(
+                        (child) => child.path === location.pathname
+                      )
+                        ? "active"
+                        : ""
+                    }`}
+                    to="#"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {subItem.label} <i className="ti-angle-right" />
+                  </Link>
+                  <ul className="dropdown-menu dropdown-submenu">
+                    {subItem.children.map((child) => (
+                      <li key={child._id || child.label}>
+                        <Link
+                          to={child.path}
+                          className={`dropdown-item ${
+                            location.pathname === child.path ? "active" : ""
+                          }`}
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <Link
+                  to={subItem.path}
+                  className={`dropdown-item ${
+                    location.pathname === subItem.path ? "active" : ""
+                  }`}
+                >
+                  {subItem.label}
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+      </li>
+    );
+  };
+
+  if (loading)
+    return <div className="navbar-placeholder">Loading navbar...</div>;
+  if (error)
+    return (
+      <div className="navbar-placeholder">Error loading navbar: {error}</div>
+    );
+  if (!navbarData)
+    return <div className="navbar-placeholder">No navbar data found</div>;
+
+  const getFullLogoUrl = (logoPath) => {
+    if (!logoPath) return "/invalid/path.jpg"; // force broken image
+    return `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/${logoPath.replace(/^\/?/, "")}`;
+  };
+
   return (
     <nav className="navbar navbar-expand-md">
       <div className="container">
         {/* Logo */}
         <div className="logo-wrapper">
           <Link className="logo" to="/">
-            <img src="img/logo-light.png" className="logo-img" alt="Logo" />
+            <img
+              src={getFullLogoUrl(navbarData.logo)}
+              className="logo-img"
+              alt="Logo"
+              onError={(e) => {
+                // Let broken image show visually
+                e.currentTarget.onerror = null;
+              }}
+            />
           </Link>
         </div>
-        {/* Button */}
+
+        {/* Mobile Toggle Button */}
         <button
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbar"
-          aria-controls="navbar"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
@@ -50,129 +162,26 @@ const Navbar = () => {
             <i className="ti-menu" />
           </span>
         </button>
-        {/* Menu */}
-        <div className="collapse navbar-collapse" id="navbar">
+
+        {/* Menu Items */}
+        <div className="collapse navbar-collapse" id="navbarContent">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className={location.pathname === '/' ? 'nav-link active' : 'nav-link'} to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className={location.pathname === '/about' ? 'nav-link active' : 'nav-link'} to="/about">
-                About
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className={location.pathname === '/services' ? 'nav-link active' : 'nav-link'} to="/services">
-                Services
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className={location.pathname === '/portfolio' ? 'nav-link active' : 'nav-link'} to="/portfolio">
-                Portfolio
-              </Link>
-            </li>
-            <li className="nav-item dropdown">
-              <Link
-                className={
-                  location.pathname === '/team' || 
-                  location.pathname === '/team-details' || 
-                  location.pathname === '/pricing' || 
-                  location.pathname === '/faqs' || 
-                  location.pathname === '/aftercare' || 
-                  location.pathname === '/services-page' || 
-                  location.pathname === '/post' || 
-                  location.pathname === '/404' || 
-                  location.pathname === '/coming-soon' 
-                    ? 'nav-link dropdown-toggle active' 
-                    : 'nav-link dropdown-toggle'
-                }
-                to="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                data-bs-auto-close="outside"
-                aria-expanded="false"
-              >
-                Pages <i className="ti-angle-down" />
-              </Link>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link to="/pricing" className={location.pathname === '/pricing' ? 'dropdown-item active' : 'dropdown-item'}>
-                    <span>Pricing</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/team" className={location.pathname === '/team' ? 'dropdown-item active' : 'dropdown-item'}>
-                    <span>Team</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/faqs" className={location.pathname === '/faqs' ? 'dropdown-item active' : 'dropdown-item'}>
-                    <span>Faq</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/aftercare" className={location.pathname === '/aftercare' ? 'dropdown-item active' : 'dropdown-item'}>
-                    <span>Aftercare</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/team-details" className={location.pathname === '/team-details' ? 'dropdown-item active' : 'dropdown-item'}>
-                    <span>Team Details</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/services-page" className={location.pathname === '/services-page' ? 'dropdown-item active' : 'dropdown-item'}>
-                    <span>Services Page</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/post" className={location.pathname === '/post' ? 'dropdown-item active' : 'dropdown-item'}>
-                    <span>Post Page</span>
-                  </Link>
-                </li>
-                <li className="dropdown-submenu dropdown">
+            {navbarData.navItems.map((navItem) =>
+              navItem.dropdown ? (
+                renderDropdown(navItem)
+              ) : (
+                <li className="nav-item" key={navItem._id || navItem.label}>
                   <Link
-                    className={
-                      location.pathname === '/404' || location.pathname === '/coming-soon'
-                        ? 'dropdown-item dropdown-toggle active'
-                        : 'dropdown-item dropdown-toggle'
-                    }
-                    to="#"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false"
+                    className={`nav-link ${
+                      location.pathname === navItem.path ? "active" : ""
+                    }`}
+                    to={navItem.path}
                   >
-                    <span>
-                      Other Pages <i className="ti-angle-right" />
-                    </span>
+                    {navItem.label}
                   </Link>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <Link to="/404" className={location.pathname === '/404' ? 'dropdown-item active' : 'dropdown-item'}>
-                        <span>404 Page</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/coming-soon" className={location.pathname === '/coming-soon' ? 'dropdown-item active' : 'dropdown-item'}>
-                        <span>Coming Soon</span>
-                      </Link>
-                    </li>
-                  </ul>
                 </li>
-              </ul>
-            </li>
-            <li className="nav-item">
-              <Link className={location.pathname === '/blog' ? 'nav-link active' : 'nav-link'} to="/blog">
-                Blog
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className={location.pathname === '/contact' ? 'nav-link active' : 'nav-link'} to="/contact">
-                Contact
-              </Link>
-            </li>
+              )
+            )}
           </ul>
         </div>
       </div>

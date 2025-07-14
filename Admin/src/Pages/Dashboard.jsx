@@ -5,6 +5,8 @@ import DashboardContent from '../Components/DashboardContent';
 import TeamContent from '../Components/TeamContent';
 import AdminHeroBanner from '../Components/HeroBanner';
 import AdminAbout from '../Components/About';
+import AdminNavbar from '../Components/AdminNavbar';
+import AdminProcess from '../Components/process';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -27,9 +29,7 @@ const Dashboard = () => {
         return <DashboardContent />;
       // Navbar Section
       case 'navbar':
-      case 'navbar-links':
-      case 'navbar-logo':
-        return <DashboardContent />;
+        return <AdminNavbar />;
 
       // Hero Section
       case 'hero':
@@ -38,24 +38,16 @@ const Dashboard = () => {
         return <AdminHeroBanner />;
       case 'hero-about':
         return <DashboardContent />;
-      case 'hero-team':
+      case 'hero-service':
         return <DashboardContent />;
 
       // About Section
       case 'about':
         return <AdminAbout />;
-      case 'about-content':
-        return <AdminAbout />;
-      case 'about-images':
-        return <AdminAbout />;
 
       // Team Section
       case 'team':
         return <TeamContent />;
-      case 'team-members':
-        return <TeamContent />;
-      case 'team-images':
-        return <DashboardContent />;
 
       // Services Section
       case 'services':
@@ -69,7 +61,7 @@ const Dashboard = () => {
 
       // Process Section
       case 'process':
-        return <DashboardContent />;
+        return <AdminProcess />;
 
       // Appointment Section
       case 'appointment':
@@ -113,24 +105,18 @@ const Dashboard = () => {
       'dashboard': 'Dashboard',
       // Navbar
       'navbar': 'Navbar',
-      'navbar-links': 'Edit Navigation Links',
-      'navbar-logo': 'Logo & Branding',
 
       // Hero Section
       'hero': 'Hero Section',
       'hero-main': 'Main Hero Content',
       'hero-about': 'About Hero (subsection)',
-      'hero-team': 'Team Hero (subsection)',
+      'hero-service': 'Team Service (subsection)',
 
       // About Section
       'about': 'About Section',
-      'about-content': 'About Content',
-      'about-images': 'About Images',
 
       // Team Section
       'team': 'Team Section',
-      'team-members': 'Team Members',
-      'team-images': 'Team Images',
 
       // Services Section
       'services': 'Services Section',

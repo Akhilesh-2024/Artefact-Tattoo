@@ -19,10 +19,6 @@ const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
       id: 'navbar',
       label: 'Navbar',
       icon: Menu,
-      subItems: [
-        { id: 'navbar-links', label: 'Edit Navigation Links', icon: Edit },
-        { id: 'navbar-logo', label: 'Logo & Branding', icon: Image }
-      ]
     },
     {
       id: 'hero',
@@ -31,26 +27,18 @@ const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
       subItems: [
         { id: 'hero-main', label: 'Main Hero Content', icon: Edit },
         { id: 'hero-about', label: 'About Hero (subsection)', icon: Info },
-        { id: 'hero-team', label: 'Team Hero (subsection)', icon: Users }
+        { id: 'hero-service', label: 'service Hero (subsection)', icon: Users }
       ]
     },
     {
       id: 'about',
       label: 'About Section',
       icon: Info,
-      subItems: [
-        { id: 'about-content', label: 'About Content', icon: Edit },
-        { id: 'about-images', label: 'About Images', icon: Image }
-      ]
     },
     {
       id: 'team',
       label: 'Team Section',
       icon: Users,
-      subItems: [
-        { id: 'team-members', label: 'Team Members', icon: UserCheck },
-        { id: 'team-images', label: 'Team Images', icon: Image }
-      ]
     },
     {
       id: 'services',
