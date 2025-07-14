@@ -6,6 +6,7 @@ import aboutRouter from "./aboutRoute.js";
 import navbarRouter from "./navbarRoutes.js";
 import processRouter from "./processRoute.js";
 import serviceRouter from "./serviceRoute.js";
+import pricingRouter from "./priceRoute.js";
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.use('/about',aboutRouter);
 router.use('/navbar',navbarRouter);
 router.use('/process',processRouter);
 router.use('/service',serviceRouter);
+router.use('/pricing',pricingRouter);
 
 export default router;

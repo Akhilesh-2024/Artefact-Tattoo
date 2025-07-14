@@ -8,6 +8,7 @@ import AdminAbout from '../Components/About';
 import AdminNavbar from '../Components/AdminNavbar';
 import AdminProcess from '../Components/process';
 import AdminServices from '../Components/service';
+import AdminPricing from '../Components/Pricing';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -56,7 +57,7 @@ const Dashboard = () => {
 
       // Pricing Section
       case 'pricing':
-        return <DashboardContent />;
+        return <AdminPricing />;
 
       // Process Section
       case 'process':
