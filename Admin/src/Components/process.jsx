@@ -77,10 +77,26 @@ const AdminProcess = () => {
     setProcess({ ...process, steps: renumbered });
   };
 
-  const handleSave = () => {
-    setMessage("Process saved successfully!");
+const handleSave = async () => {
+  try {
+    if (process._id) {
+      // Update existing process
+      await axios.put(`/api/tatto/process/${process._id}`, process);
+      setMessage("Process updated successfully!");
+    } else {
+      // Create new process
+      const res = await axios.post("/api/tatto/process", process);
+      setProcess(res.data); // To get _id and use it later for updates
+      setMessage("Process created successfully!");
+    }
+  } catch (error) {
+    console.error(error);
+    setMessage("Failed to save process.");
+  } finally {
     setTimeout(() => setMessage(""), 3000);
-  };
+  }
+};
+
 
   if (loading || !process) return <p className="text-center py-10 text-gray-600">Loading...</p>;
 
