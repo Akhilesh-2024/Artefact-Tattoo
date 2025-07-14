@@ -1,5 +1,16 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Services = () => {
+  const [services, setServices] = useState([]);
+  const baseURL = import.meta.env.VITE_API_URL;
+
+  useEffect(() => {
+    axios.get("/api/tatto/service")
+      .then(res => setServices(res.data))
+      .catch(err => console.error("Failed to fetch services", err));
+  }, []);
+
   return (
     <section className="services section-padding">
       <div className="container">
@@ -9,114 +20,56 @@ const Services = () => {
             <div className="section-title white">Our Services</div>
           </div>
         </div>
-        <div className="row mb-30">
-          <div
-            className="col-md-6 animate-box"
-            data-animate-effect="fadeInLeft"
-          >
-            <div className="img left">
-              <a href="services-page.html">
-                <img src="img/services/1.jpg" alt="" />
-              </a>
-            </div>
+
+        {services.map((service, index) => (
+          <div className="row mb-30" key={service._id}>
+            {index % 2 === 0 ? (
+              <>
+                <div className="col-md-6 animate-box" data-animate-effect="fadeInLeft">
+                  <div className="img left">
+                    <img src={`${baseURL}/uploads/service/${service.img}`} alt={service.title} />
+                  </div>
+                </div>
+                <div className="col-md-6 valign animate-box" data-animate-effect="fadeInRight">
+                  <div className="content">
+                    <div className="date">
+                      <h1>{String(service.order).padStart(2, "0")}</h1>
+                    </div>
+                    <div className="cont">
+                      <h5>{service.title}</h5>
+                      <p>{service.description}</p>
+                      <a href="/services-page.html" className="btn-curve btn-1 mt-10">
+                        <span>Read More</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="col-md-6 order2 valign animate-box" data-animate-effect="fadeInLeft">
+                  <div className="content">
+                    <div className="date">
+                      <h1>{String(service.order).padStart(2, "0")}</h1>
+                    </div>
+                    <div className="cont">
+                      <h5>{service.title}</h5>
+                      <p>{service.description}</p>
+                      <a href="/services-page.html" className="btn-curve btn-1 mt-10">
+                        <span>Read More</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 order1 animate-box" data-animate-effect="fadeInRight">
+                  <div className="img left">
+                    <img src={`${baseURL}/uploads/service/${service.img}`} alt={service.title} />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
-          <div
-            className="col-md-6 valign animate-box"
-            data-animate-effect="fadeInRight"
-          >
-            <div className="content">
-              <div className="date">
-                <h1>01</h1>
-              </div>
-              <div className="cont">
-                <h5>Tattooing</h5>
-                <p>
-                  Lorem arena nuam enim mi obortis esen the uctus accumsan
-                  golden alisuame amet auctor orci done vitae vehicula risus
-                  duise nun sapien accumsan imauris ullamcorper rutrum asuam.
-                </p>
-                <a
-                  href="services-page.html"
-                  className="btn-curve btn-1 mt-10"
-                >
-                  <span>Read More</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row mb-30">
-          <div
-            className="col-md-6 order2 valign animate-box"
-            data-animate-effect="fadeInLeft"
-          >
-            <div className="content">
-              <div className="date">
-                <h1>02</h1>
-              </div>
-              <div className="cont">
-                <h5>Piercing</h5>
-                <p>
-                  Lorem arena nuam enim mi obortis esen the uctus accumsan
-                  golden alisuame amet auctor orci done vitae vehicula risus
-                  duise nun sapien accumsan imauris ullamcorper rutrum asuam.
-                </p>
-                <a
-                  href="services-page.html"
-                  className="btn-curve btn-1 mt-10"
-                >
-                  <span>Read More</span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-lg-6 order1 animate-box"
-            data-animate-effect="fadeInRight"
-          >
-            <div className="img left">
-              <a href="services-page.html">
-                <img src="img/services/4.jpg" alt="" />
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="row mb-30">
-          <div
-            className="col-md-6 animate-box"
-            data-animate-effect="fadeInLeft"
-          >
-            <div className="img left">
-              <a href="services-page.html">
-                <img src="img/services/3.jpg" alt="" />
-              </a>
-            </div>
-          </div>
-          <div
-            className="col-md-6 valign animate-box"
-            data-animate-effect="fadeInRight"
-          >
-            <div className="content">
-              <div className="date">
-                <h1>03</h1>
-              </div>
-              <div className="cont">
-                <h5>Laser Removal</h5>
-                <p>
-                  Lorem arena nuam enim mi obortis esen the uctus accumsan
-                  golden alisuame amet auctor orci done vitae vehicula risus
-                  duise nun sapien accumsan imauris ullamcorper rutrum asuam.
-                </p>
-                <a
-                  href="services-page.html"
-                  className="btn-curve btn-1 mt-10"
-                >
-                  <span>Read More</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

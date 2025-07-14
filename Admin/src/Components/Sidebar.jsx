@@ -44,10 +44,6 @@ const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
       id: 'services',
       label: 'Services Section',
       icon: Briefcase,
-      subItems: [
-        { id: 'services-list', label: 'Service List', icon: List },
-        { id: 'services-details', label: 'Service Details', icon: Edit }
-      ]
     },
     { id: 'pricing', label: 'Pricing Section', icon: DollarSign },
     { id: 'process', label: 'Process Section', icon: Workflow },

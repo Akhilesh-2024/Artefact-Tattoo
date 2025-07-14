@@ -7,6 +7,7 @@ import AdminHeroBanner from '../Components/HeroBanner';
 import AdminAbout from '../Components/About';
 import AdminNavbar from '../Components/AdminNavbar';
 import AdminProcess from '../Components/process';
+import AdminServices from '../Components/service';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -51,9 +52,7 @@ const Dashboard = () => {
 
       // Services Section
       case 'services':
-      case 'services-list':
-      case 'services-details':
-        return <DashboardContent />;
+        return <AdminServices />;
 
       // Pricing Section
       case 'pricing':
@@ -120,8 +119,6 @@ const Dashboard = () => {
 
       // Services Section
       'services': 'Services Section',
-      'services-list': 'Service List',
-      'services-details': 'Service Details',
 
       // Pricing Section
       'pricing': 'Pricing Section',

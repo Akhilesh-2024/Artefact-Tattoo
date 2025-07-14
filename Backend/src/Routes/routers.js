@@ -5,6 +5,7 @@ import heroRouter from "./heroRoutes.js";
 import aboutRouter from "./aboutRoute.js";
 import navbarRouter from "./navbarRoutes.js";
 import processRouter from "./processRoute.js";
+import serviceRouter from "./serviceRoute.js";
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ router.use('/hero',heroRouter);
 router.use('/about',aboutRouter);
 router.use('/navbar',navbarRouter);
 router.use('/process',processRouter);
+router.use('/service',serviceRouter);
 
 export default router;
