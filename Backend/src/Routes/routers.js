@@ -16,6 +16,7 @@ import clientRouter from "./clientRouter.js";
 import footerRouter from "./footerRouter.js";
 import subscriberRouter from "./subscriberRouter.js";
 import galleryRoute from "./galleryRoute.js";
+import faqRouter from "./FaqRoutes.js";
 
 const router = express.Router();
 
@@ -36,5 +37,6 @@ router.use('/clients', clientRouter);
 router.use('/footer', footerRouter);
 router.use('/subscribe', subscriberRouter);
 router.use('/gallery', galleryRoute);
+router.use('/faqs', faqRouter);
 
 export default router;

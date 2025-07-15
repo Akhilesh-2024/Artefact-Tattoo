@@ -60,6 +60,7 @@ const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
       icon: BookOpen,
     },
     { id: 'gallery', label: 'Gallery', icon: Image },
+    { id: 'faq', label: 'Faq', icon: Eye },
     {
       id: 'videos',
       label: 'Promo Video & Testimonials',

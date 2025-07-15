@@ -18,6 +18,7 @@ import AdminClients from '../Components/AdminClients';
 import AdminFooterPanel from '../Components/AdminFooter';
 import AdminSubscribers from '../Components/AdminSubscribers';
 import AdminGallery from '../Components/adminGallery';
+import AdminFaqsPanel from '../Components/AdminFaqs';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -88,6 +89,9 @@ const Dashboard = () => {
       case 'gallery':
         return <AdminGallery />;
 
+      case 'faq':
+        return <AdminFaqsPanel />;
+
       // Videos Section
       case 'videos':
         return <AdminPromo />;
@@ -152,6 +156,8 @@ const Dashboard = () => {
 
       // Gallery Section
       'gallery': 'Gallery',
+
+      'faq': 'Faqs',
 
       // Videos Section
       'videos': 'Promo Video & Testimonials',
