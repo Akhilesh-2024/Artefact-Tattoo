@@ -17,6 +17,7 @@ import AdminTestimonials from '../Components/adminTestimonials';
 import AdminClients from '../Components/AdminClients';
 import AdminFooterPanel from '../Components/AdminFooter';
 import AdminSubscribers from '../Components/AdminSubscribers';
+import AdminGallery from '../Components/adminGallery';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -85,7 +86,7 @@ const Dashboard = () => {
 
       // Gallery Section
       case 'gallery':
-        return <DashboardContent />;
+        return <AdminGallery />;
 
       // Videos Section
       case 'videos':

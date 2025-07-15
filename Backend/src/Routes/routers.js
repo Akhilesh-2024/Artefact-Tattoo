@@ -15,6 +15,7 @@ import testimonialRouter from "./testimonialRoute.js";
 import clientRouter from "./clientRouter.js";
 import footerRouter from "./footerRouter.js";
 import subscriberRouter from "./subscriberRouter.js";
+import galleryRoute from "./galleryRoute.js";
 
 const router = express.Router();
 
@@ -34,5 +35,6 @@ router.use('/testimonials', testimonialRouter);
 router.use('/clients', clientRouter);
 router.use('/footer', footerRouter);
 router.use('/subscribe', subscriberRouter);
+router.use('/gallery', galleryRoute);
 
 export default router;
