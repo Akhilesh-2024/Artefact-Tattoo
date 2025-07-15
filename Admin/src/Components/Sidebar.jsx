@@ -58,10 +58,6 @@ const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
       id: 'blog',
       label: 'Blog',
       icon: BookOpen,
-      subItems: [
-        { id: 'blog-posts', label: 'Blog Posts', icon: FileText },
-        { id: 'blog-categories', label: 'Categories', icon: List }
-      ]
     },
     { id: 'gallery', label: 'Gallery', icon: Image },
     {

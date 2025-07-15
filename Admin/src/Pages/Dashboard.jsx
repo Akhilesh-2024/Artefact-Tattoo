@@ -11,6 +11,7 @@ import AdminServices from '../Components/service';
 import AdminPricing from '../Components/Pricing';
 import AdminAppointmentContent from '../Components/AdminAppointmentContent';
 import AdminAppointmentBookings from '../Components/AppointmentBookings';
+import AdminBlog from '../Components/AdminBlog';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -75,9 +76,7 @@ const Dashboard = () => {
 
       // Blog Section
       case 'blog':
-      case 'blog-posts':
-      case 'blog-categories':
-        return <DashboardContent />;
+        return <AdminBlog />;
 
       // Gallery Section
       case 'gallery':
@@ -140,8 +139,6 @@ const Dashboard = () => {
 
       // Blog Section
       'blog': 'Blog',
-      'blog-posts': 'Blog Posts',
-      'blog-categories': 'Categories',
 
       // Gallery Section
       'gallery': 'Gallery',
