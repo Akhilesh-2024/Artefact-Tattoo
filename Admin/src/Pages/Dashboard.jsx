@@ -20,6 +20,8 @@ import AdminSubscribers from '../Components/AdminSubscribers';
 import AdminGallery from '../Components/adminGallery';
 import AdminFaqsPanel from '../Components/AdminFaqs';
 import AdminAftercare from '../Components/AfterCare';
+import AdminContactInbox from '../Components/AdminContactInbox';
+import AdminContactContent from '../Components/AdminContactContent';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -115,6 +117,14 @@ const Dashboard = () => {
         return <AdminFooterPanel />;
       case 'footer-subscribers':
         return <AdminSubscribers />;
+
+      // Contact Section
+      case 'contact':
+        return <AdminContactInbox />;
+        case 'contact-inbox':
+        return <AdminContactInbox />;
+      case 'contact-content':
+        return <AdminContactContent />;
 
       // Default fallback
       default:

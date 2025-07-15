@@ -18,6 +18,7 @@ import subscriberRouter from "./subscriberRouter.js";
 import galleryRoute from "./galleryRoute.js";
 import faqRouter from "./FaqRoutes.js";
 import aftercareRouter from "./aftercareRoute.js";
+import contactRouter from "./contactRoutes.js";
 
 const router = express.Router();
 
@@ -40,5 +41,6 @@ router.use('/subscribe', subscriberRouter);
 router.use('/gallery', galleryRoute);
 router.use('/faqs', faqRouter);
 router.use('/aftercare', aftercareRouter);
+router.use('/contact', contactRouter);
 
 export default router;

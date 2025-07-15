@@ -80,7 +80,16 @@ const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
         { id: 'footer-content', label: 'Footer Content', icon: Edit },
         { id: 'footer-subscribers', label: 'Subscribers', icon: Inbox }
       ]
-    }
+    },
+    {
+      id: 'contact',
+      label: 'Contact',
+      icon: Archive,
+      subItems: [
+        { id: 'contact-inbox', label: 'Inbox', icon: Inbox },
+        { id: 'contact-content', label: 'Contact Content', icon: Edit }
+      ]
+    },
   ];
 
   const toggleExpanded = () => setIsExpanded(!isExpanded);
