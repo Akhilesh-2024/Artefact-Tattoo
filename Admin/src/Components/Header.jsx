@@ -87,14 +87,14 @@ const Header = ({ onToggleSidebar, isSidebarOpen }) => {
               </div>
               <a
                 href="#"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 flex items-center"
+                className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 flex items-center"
               >
                 <User size={14} className="mr-2" />
                 Profile
               </a>
               <a
                 href="#"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 flex items-center"
+                className=" px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 flex items-center"
               >
                 <Settings size={14} className="mr-2" />
                 Settings
