@@ -1,96 +1,122 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Footer = () => {
+  const [footerData, setFooterData] = useState(null);
+  const [emailInput, setEmailInput] = useState("");
+  const [subscribeMessage, setSubscribeMessage] = useState("");
+
+  useEffect(() => {
+    const fetchFooterData = async () => {
+      try {
+        const res = await axios.get("/api/tatto/footer");
+        setFooterData(res.data);
+      } catch (err) {
+        console.error("Failed to load footer data", err);
+      }
+    };
+
+    fetchFooterData();
+  }, []);
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    if (!emailInput) return;
+
+    try {
+      const res = await axios.post("/api/tatto/subscribe", { email: emailInput });
+      setSubscribeMessage(res.data.message || "Subscribed successfully!");
+      setEmailInput("");
+    } catch (err) {
+      const msg =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        "Subscription failed.";
+      setSubscribeMessage(msg);
+    }
+
+    setTimeout(() => setSubscribeMessage(""), 5000);
+  };
+
+  if (!footerData) return null;
+
+  const { address, phone, email, socialLinks, workHours, subscribeText } = footerData;
+
   return (
     <footer className="footer">
       <div className="footer-top">
         <div className="container">
           <div className="row">
+            {/* Contact Info */}
             <div className="col-md-3">
               <div className="footer-column footer-contact">
                 <h3 className="footer-title">Contact</h3>
                 <p className="footer-contact-text">
-                  0665 Broadway NY, New York 10001
+                  {address?.line1}
                   <br />
-                  United States of America
+                  {address?.line2}
                 </p>
                 <div className="footer-contact-info">
-                  <p className="footer-contact-phone">855 100 4444</p>
-                  <p className="footer-contact-mail">info@tattoo.com</p>
+                  <p className="footer-contact-phone">{phone}</p>
+                  <p className="footer-contact-mail">{email}</p>
                 </div>
                 <div className="footer-about-social-list">
-                  <a href="#">
-                    <i className="ti-instagram" />
-                  </a>
-                  <a href="#">
-                    <i className="ti-twitter" />
-                  </a>
-                  <a href="#">
-                    <i className="ti-youtube" />
-                  </a>
-                  <a href="#">
-                    <i className="ti-facebook" />
-                  </a>
-                  <a href="#">
-                    <i className="ti-pinterest" />
-                  </a>
+                  {socialLinks?.instagram && (
+                    <a href={socialLinks.instagram} target="_blank" rel="noreferrer">
+                      <i className="ti-instagram" />
+                    </a>
+                  )}
+                  {socialLinks?.twitter && (
+                    <a href={socialLinks.twitter} target="_blank" rel="noreferrer">
+                      <i className="ti-twitter" />
+                    </a>
+                  )}
+                  {socialLinks?.youtube && (
+                    <a href={socialLinks.youtube} target="_blank" rel="noreferrer">
+                      <i className="ti-youtube" />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
+
+            {/* Work Hours */}
             <div className="col-md-3 offset-md-1">
               <div className="item opening">
                 <h3 className="footer-title">Work Time</h3>
                 <ul>
-                  <li>
-                    <div className="tit">Monday</div>
-                    <div className="dots" />
-                    <span>10:00 - 20:00</span>
-                  </li>
-                  <li>
-                    <div className="tit">Tuesday</div>
-                    <div className="dots" />
-                    <span>10:00 - 20:00</span>
-                  </li>
-                  <li>
-                    <div className="tit">Thursday</div>
-                    <div className="dots" />
-                    <span>10:00 - 20:00</span>
-                  </li>
-                  <li>
-                    <div className="tit">Friday</div>
-                    <div className="dots" />
-                    <span>10:00 - 20:00</span>
-                  </li>
-                  <li>
-                    <div className="tit">Saturday</div>
-                    <div className="dots" />
-                    <span>10:00 - 20:00</span>
-                  </li>
-                  <li>
-                    <div className="tit">Weekend</div>
-                    <div className="dots" />
-                    <span>Closed</span>
-                  </li>
+                  {workHours?.map((item, idx) => (
+                    <li key={idx}>
+                      <div className="tit">{item.day}</div>
+                      <div className="dots" />
+                      <span>{item.time}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
+
+            {/* Subscribe */}
             <div className="col-md-4 offset-md-1">
               <div className="footer-column footer-explore clearfix">
                 <h3 className="footer-title">Subscribe</h3>
                 <div className="row subscribe">
                   <div className="col-md-12">
-                    <p>
-                      Subscribe to take advantage of our campaigns and gift
-                      certificates.
-                    </p>
-                    <form>
+                    <p>{subscribeText}</p>
+                    <form onSubmit={handleSubscribe}>
                       <input
-                        type="text"
-                        name="search"
+                        type="email"
+                        name="email"
+                        value={emailInput}
+                        onChange={(e) => setEmailInput(e.target.value)}
                         placeholder="Your email"
                         required
                       />
-                      <button>Subscribe</button>
+                      <button type="submit">Subscribe</button>
                     </form>
+                    {subscribeMessage && (
+                      <p className="mt-2 text-sm text-green-500">{subscribeMessage}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -98,6 +124,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* Bottom Section */}
       <div className="footer-bottom">
         <div className="container">
           <div className="row">
@@ -106,11 +134,11 @@ const Footer = () => {
                 <p className="footer-bottom-copy-right">
                   2025 © All rights reserved. Designed by{" "}
                   <a
-                    href="https://1.envato.market/DuruThemes"
+                    href="https://www.linkedin.com/in/akhilesh2022/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    DuruThemes
+                    Akhilesh Jadhav
                   </a>
                 </p>
               </div>

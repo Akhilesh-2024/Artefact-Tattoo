@@ -76,7 +76,7 @@ const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
       icon: Archive,
       subItems: [
         { id: 'footer-content', label: 'Footer Content', icon: Edit },
-        { id: 'footer-social', label: 'Social Links', icon: Share2 }
+        { id: 'footer-subscribers', label: 'Subscribers', icon: Inbox }
       ]
     }
   ];

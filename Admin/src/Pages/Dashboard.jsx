@@ -15,6 +15,8 @@ import AdminBlog from '../Components/AdminBlog';
 import AdminPromo from '../Components/AdminPromo';
 import AdminTestimonials from '../Components/adminTestimonials';
 import AdminClients from '../Components/AdminClients';
+import AdminFooterPanel from '../Components/AdminFooter';
+import AdminSubscribers from '../Components/AdminSubscribers';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -99,9 +101,11 @@ const Dashboard = () => {
 
       // Footer Section
       case 'footer':
-      case 'footer-content':
-      case 'footer-social':
-        return <DashboardContent />;
+        return <AdminFooterPanel />;
+        case 'footer-content':
+        return <AdminFooterPanel />;
+      case 'footer-subscribers':
+        return <AdminSubscribers />;
 
       // Default fallback
       default:
@@ -159,7 +163,7 @@ const Dashboard = () => {
       // Footer Section
       'footer': 'Footer',
       'footer-content': 'Footer Content',
-      'footer-social': 'Social Links'
+      'footer-subscribers': 'Subscribers'
     };
 
     return titleMap[activeTab] || 'Dashboard';
