@@ -1,34 +1,42 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import PromoVideoTestimonials from "../Components/Main/PromoVideoTestimonials";
 import Clients from "../Components/Main/Clients";
 
 const AftercarePage = () => {
   const bannerRef = useRef(null);
-  
-  // Initialize background image when component mounts
+  const [aftercareData, setAftercareData] = useState(null);
+
   useEffect(() => {
     if (bannerRef.current) {
       const section = bannerRef.current;
       const bgImage = section.getAttribute('data-background');
-      
       if (bgImage) {
         section.style.backgroundImage = `url(${bgImage})`;
       }
     }
-    
-    // Force re-initialization of scripts
+
     setTimeout(() => {
       if (typeof window.initPageScripts === 'function') {
         window.initPageScripts('/aftercare');
       }
     }, 200);
-    
-    // Cleanup function
-    return () => {
-    };
+
+    // Fetch aftercare data
+    axios.get(`${import.meta.env.VITE_API_URL}/api/tatto/aftercare`)
+      .then((res) => {
+        setAftercareData(res.data);
+      })
+      .catch((err) => {
+        console.error("Error loading aftercare data", err);
+      });
   }, []);
-  
+
+  if (!aftercareData) return null;
+
+  const { tattoo, piercing } = aftercareData;
+
   return (
     <>
       {/* Header Banner */}
@@ -47,156 +55,75 @@ const AftercarePage = () => {
               <h1 className="animate-box" data-animate-effect="fadeInUp">Aftercare</h1>
               <hr className="animate-box" data-animate-effect="fadeInUp" />
               <p className="animate-box" data-animate-effect="fadeInUp">
-                We provide expert guidance and high-quality artistry. Tattoo viverra tristique usto vitae diam neque nivamus aestan the artine arinianu finibus viverra.
+                We provide expert guidance and high-quality artistry.
               </p>
             </div>
           </div>
         </div>
       </section>
-      
-      {/* hr */}
+
       <div className="line-vr-section"></div>
-      
-      {/* Aftercare */}
+
       <section className="section-padding">
         <div className="container">
           <div className="about-info">
+            {/* Tattoo Aftercare */}
             <div className="row">
               <div className="col-md-4">
                 <div className="about-info-img mb-30">
                   <div className="img">
-                    <img src="img/aftercare.jpg" className="img-fluid" alt="" />
+                    <img
+                      src={`${import.meta.env.VITE_API_URL}${tattoo?.image || ''}`}
+                      className="img-fluid"
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
               <div className="col-md-8">
-                <h2 className="section-title2">Tattoo Aftercare</h2>
-                <p>
-                  We've provided these helpful aftercare instructions to ensure the health of your tattoo. Healing normally occurs within 1 to 2 weeks. Following these tattoo aftercare instructions will help to ensure its vibrance and quality as
-                  it heals. Please avoid exposing it to direct sunlight.
-                </p>
+                <h2 className="section-title2">{tattoo?.heading}</h2>
+                <p>{tattoo?.description}</p>
                 <ul className="about-list list-unstyled mb-30">
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>Following these tattoo aftercare instructions will help to ensure its vibrance and quality as it heals.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>Wash hands thoroughly prior to touching your tattoo for any reason.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>Pat dry with a clean cloth or towel.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>Apply a small amount of ointment to tattoo for the first 4 days.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>Continue this regiment until the tattoo is fully under the skin.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>For any questions, concerns, or continued care, reach out to us online, or walk-in to the shop.</p>
-                    </div>
-                  </li>
+                  {tattoo?.points?.map((point, i) => (
+                    <li key={i}>
+                      <div className="about-list-icon">
+                        <span className="ti-check"></span>
+                      </div>
+                      <div className="about-list-text">
+                        <p>{point}</p>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
+
+            {/* Piercing Aftercare */}
             <div className="row">
               <div className="col-md-8 mt-90">
-                <h2 className="section-title2">Piercing Aftercare</h2>
-                <p>
-                  We've provided these helpful aftercare instructions to ensure the health of your piercing. Healing times may vary greatly from person to person though, in most cases, a well maintained piercing will feel and appear healed within
-                  about 4 weeks.
-                </p>
+                <h2 className="section-title2">{piercing?.heading}</h2>
+                <p>{piercing?.description}</p>
                 <ul className="about-list list-unstyled mb-30">
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>Wash your hands thoroughly prior to cleaning or touching your piercing for any reason.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>Using mild (fragrance-free, alcohol-free) soap, gently lather around the piercing.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>Rinse area thoroughly to remove all traces of soap from the piercing.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>Use saline rinse 2 times daily during healing on the front and back of your piercing.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>Refrain from unnecessary handling of the piercing.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>For any questions, concerns, or continued care, reach out to us online, or walk-in to the shop.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="about-list-icon">
-                      <span className="ti-check"></span>
-                    </div>
-                    <div className="about-list-text">
-                      <p>When in doubt, wash and spray twice a day!</p>
-                    </div>
-                  </li>
+                  {piercing?.points?.map((point, i) => (
+                    <li key={i}>
+                      <div className="about-list-icon">
+                        <span className="ti-check"></span>
+                      </div>
+                      <div className="about-list-text">
+                        <p>{point}</p>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="col-md-4">
                 <div className="about-info-img pt-60">
                   <div className="img">
-                    <img src="img/aftercare2.jpg" className="img-fluid" alt="" />
+                    <img
+                      src={`${import.meta.env.VITE_API_URL}${piercing?.image || ''}`}
+                      className="img-fluid"
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
@@ -204,11 +131,8 @@ const AftercarePage = () => {
           </div>
         </div>
       </section>
-      
-      {/* Promo video - Testimonials */}
+
       <PromoVideoTestimonials />
-      
-      {/* Clients */}
       <Clients />
     </>
   );

@@ -19,6 +19,7 @@ import AdminFooterPanel from '../Components/AdminFooter';
 import AdminSubscribers from '../Components/AdminSubscribers';
 import AdminGallery from '../Components/adminGallery';
 import AdminFaqsPanel from '../Components/AdminFaqs';
+import AdminAftercare from '../Components/AfterCare';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -92,6 +93,9 @@ const Dashboard = () => {
       case 'faq':
         return <AdminFaqsPanel />;
 
+      case 'aftercare':
+        return <AdminAftercare />;
+
       // Videos Section
       case 'videos':
         return <AdminPromo />;
@@ -158,6 +162,8 @@ const Dashboard = () => {
       'gallery': 'Gallery',
 
       'faq': 'Faqs',
+
+      'aftercare': 'Aftercare',
 
       // Videos Section
       'videos': 'Promo Video & Testimonials',

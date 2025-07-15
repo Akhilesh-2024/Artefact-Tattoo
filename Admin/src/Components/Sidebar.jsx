@@ -61,6 +61,7 @@ const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
     },
     { id: 'gallery', label: 'Gallery', icon: Image },
     { id: 'faq', label: 'Faq', icon: Eye },
+    { id: 'aftercare', label: 'Aftercare', icon: UserCheck },
     {
       id: 'videos',
       label: 'Promo Video & Testimonials',
