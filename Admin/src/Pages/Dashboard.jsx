@@ -12,6 +12,8 @@ import AdminPricing from '../Components/Pricing';
 import AdminAppointmentContent from '../Components/AdminAppointmentContent';
 import AdminAppointmentBookings from '../Components/AppointmentBookings';
 import AdminBlog from '../Components/AdminBlog';
+import AdminPromo from '../Components/AdminPromo';
+import AdminTestimonials from '../Components/adminTestimonials';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -84,9 +86,11 @@ const Dashboard = () => {
 
       // Videos Section
       case 'videos':
+        return <AdminPromo />;
       case 'videos-promo':
+        return <AdminPromo />;
       case 'videos-testimonials':
-        return <DashboardContent />;
+        return <AdminTestimonials />;
 
       // Clients Section
       case 'clients':

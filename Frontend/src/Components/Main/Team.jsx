@@ -1,42 +1,44 @@
 import axios from "axios";
-import { useEffect, useRef } from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Team = () => {
-  
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true);
   const carouselRef = useRef(null);
 
   // Fetch team data
   useEffect(() => {
-    const fetchTeam = async() => {
+    const fetchTeam = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('/api/tatto/team');
-        const data = await res.data;
-        setTeam(data);
+        const res = await axios.get("/api/tatto/team");
+        setTeam(res.data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
-    }
+    };
     fetchTeam();
-  }, []) // Empty dependency array means this runs once on mount
+  }, []);
 
-  // Initialize Owl Carousel after data is loaded
+  // Owl Carousel setup after loading and data available
   useEffect(() => {
     if (!loading && team.length > 0 && carouselRef.current) {
-      // Make sure jQuery and Owl Carousel are available
-      if (window.jQuery && typeof window.jQuery(carouselRef.current).owlCarousel === 'function') {
-        // Destroy existing carousel instance if it exists
-        const $carousel = window.jQuery(carouselRef.current);
-        if ($carousel.data('owl.carousel')) {
-          $carousel.trigger('destroy.owl.carousel');
-        }
-        
-        // Initialize the carousel with your desired options
+      const $ = window.jQuery;
+      const $carousel = $(carouselRef.current);
+
+      // Fully destroy existing carousel (important)
+      if ($carousel.hasClass("owl-loaded")) {
+        $carousel.trigger("destroy.owl.carousel");
+        $carousel.removeClass("owl-loaded owl-center owl-hidden");
+        $carousel.find(".owl-stage-outer").children().unwrap();
+        $carousel.find(".owl-stage").children().unwrap();
+        $carousel.html($carousel.find(".item")); // Keep only .item elements
+      }
+
+      // Initialize again
+      setTimeout(() => {
         $carousel.owlCarousel({
           loop: true,
           margin: 30,
@@ -44,36 +46,11 @@ const Team = () => {
           autoplay: false,
           dots: true,
           nav: false,
-          items: 1, // Show only 1 item at a time
-          navText: ['<i class="fas fa-angle-left" aria-hidden="true"></i>', '<i class="fas fa-angle-right" aria-hidden="true"></i>'],
+          items: 1,
         });
-      }
+      }, 200); // slight delay to ensure DOM is ready
     }
-  }, [team, loading])
-
-  // const team = [
-  //   {
-  //     id: 1,
-  //     img: "img/team/7.jpg",
-  //     name: "Andreas Martin",
-  //     subname: "Piercing Artist",
-  //     info: "Tattoo aliquet miss orci elit gene on tristique in the dream vitaen aliuam lorem tincidunt felis sed gravida aliquam the neque miss blue hendren mavition duru sapien mana amenta the mollis.",
-  //   },
-  //   {
-  //     id: 3,
-  //     img: "img/team/8.jpg",
-  //     name: "Daniel Brown",
-  //     subname: "Tattoo Artist",
-  //     info: "Tattoo aliquet miss orci elit gene on tristique in the dream vitaen aliuam lorem tincidunt felis sed gravida aliquam the neque miss blue hendren mavition duru sapien mana amenta the mollis.",
-  //   },
-  //   {
-  //     id: 5,
-  //     img: "img/team/9.jpg",
-  //     name: "Jason White",
-  //     subname: "Tattoo Artist",
-  //     info: "Tattoo aliquet miss orci elit gene on tristique in the dream vitaen aliuam lorem tincidunt felis sed gravida aliquam the neque miss blue hendren mavition duru sapien mana amenta the mollis.",
-  //   },
-  // ];
+  }, [loading, team]);
 
   return (
     <section className="team section-padding">
@@ -99,22 +76,29 @@ const Team = () => {
                 <p>No team members found.</p>
               </div>
             ) : (
-              <div className="owl-carousel owl-theme" ref={carouselRef}>
+              <div
+                className="owl-carousel owl-theme"
+                ref={carouselRef}
+              >
                 {team.map((member) => (
-                <div className="item right" key={member._id}>
-                <figure>
-                  <img src={`${import.meta.env.VITE_API_URL}${member.img}`} alt="" className="img-fluid team-img-fix" />
-                </figure>
-                <div className="caption padding-left">
-                  <div className="name">{member.name}</div>
-                  <div className="subname">{member.subname}</div>
-                  <p>{member.info}</p>
-                  <a href="/team-details" className="btn-curve btn-1 mt-10">
-                    <span>View Details</span>
-                  </a>
-                </div>
-              </div>
-              ))}
+                  <div className="item right" key={member._id}>
+                    <figure>
+                      <img
+                        src={`${import.meta.env.VITE_API_URL}${member.img}`}
+                        alt={member.name}
+                        className="img-fluid team-img-fix"
+                      />
+                    </figure>
+                    <div className="caption padding-left">
+                      <div className="name">{member.name}</div>
+                      <div className="subname">{member.subname}</div>
+                      <p>{member.info}</p>
+                      <a href={`/team-details/${member._id}`} className="btn-curve btn-1 mt-10">
+                        <span>View Details</span>
+                      </a>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>

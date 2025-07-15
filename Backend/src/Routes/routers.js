@@ -10,6 +10,8 @@ import pricingRouter from "./priceRoute.js";
 import appointmentContentRouter from "./appointmentContent.js";
 import appointmentBookingRouter from "./appointmentBooking.js";
 import blogRouter from "./blogRoute.js";
+import promoVideoRouter from "./promoVideoRoute.js";
+import testimonialRouter from "./testimonialRoute.js";
 
 const router = express.Router();
 
@@ -24,5 +26,7 @@ router.use('/pricing',pricingRouter);
 router.use('/appointment-content', appointmentContentRouter);
 router.use('/appointment-booking', appointmentBookingRouter);
 router.use('/blog', blogRouter);
+router.use('/promo', promoVideoRouter);
+router.use('/testimonials', testimonialRouter);
 
 export default router;

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
+  const carouselRef = useRef(null);
 
   // Fetch blogs
   useEffect(() => {
@@ -18,26 +19,25 @@ const Blog = () => {
     fetchBlogs();
   }, []);
 
-  // Owl Carousel initialization
+  // Reinitialize Owl Carousel
   useEffect(() => {
     if (typeof window.$ === "undefined") return;
+    const $ = window.$;
+    const $carousel = $(carouselRef.current);
 
-    const $carousel = window.$(".owl-carousel");
-
-    // Destroy previous instance if exists
-    if ($carousel.data("owl.carousel")) {
-      $carousel.trigger("destroy.owl.carousel");
-      $carousel.find(".owl-stage-outer").children().unwrap();
-      $carousel.removeClass("owl-center owl-loaded owl-text-select-on");
-    }
-
-    // Reinit only if more than 1 blog exists
     if (blogs.length > 1) {
+      // Cleanup previous instance
+      if ($carousel.hasClass("owl-loaded")) {
+        $carousel.trigger("destroy.owl.carousel");
+        $carousel.find(".owl-stage-outer").children().unwrap();
+        $carousel.removeClass("owl-center owl-loaded owl-text-select-on");
+      }
+
+      // Delay to ensure DOM is updated
       setTimeout(() => {
         $carousel.owlCarousel({
           loop: true,
           margin: 30,
-          responsiveClass: true,
           dots: true,
           nav: false,
           autoplay: true,
@@ -47,7 +47,7 @@ const Blog = () => {
             1000: { items: 2 },
           },
         });
-      }, 100);
+      }, 300); // Delay ensures DOM stability
     }
   }, [blogs]);
 
@@ -64,7 +64,7 @@ const Blog = () => {
         </div>
 
         <div className="row">
-          <div className="owl-carousel owl-theme">
+          <div className="owl-carousel owl-theme" ref={carouselRef}>
             {blogs.map((item) => (
               <div className="item" key={item._id}>
                 <div className="post-img">
@@ -88,7 +88,8 @@ const Blog = () => {
                     <a href="/blog">
                       {new Date(item.date).toLocaleString("default", {
                         month: "long",
-                      })}, {new Date(item.date).getDate()}
+                      })},{" "}
+                      {new Date(item.date).getDate()}
                     </a>
                   </div>
                 </div>
