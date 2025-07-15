@@ -9,6 +9,8 @@ import AdminNavbar from '../Components/AdminNavbar';
 import AdminProcess from '../Components/process';
 import AdminServices from '../Components/service';
 import AdminPricing from '../Components/Pricing';
+import AdminAppointmentContent from '../Components/AdminAppointmentContent';
+import AdminAppointmentBookings from '../Components/AppointmentBookings';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -65,7 +67,11 @@ const Dashboard = () => {
 
       // Appointment Section
       case 'appointment':
-        return <DashboardContent />;
+        return <AdminAppointmentBookings />;
+        case 'appointments':
+        return <AdminAppointmentBookings />;
+      case 'appointment-content':
+        return <AdminAppointmentContent />;
 
       // Blog Section
       case 'blog':
@@ -129,6 +135,8 @@ const Dashboard = () => {
 
       // Appointment Section
       'appointment': 'Appointment Form',
+      'appointments': 'Appointments',
+      'appointment-content': 'Appointment-Content',
 
       // Blog Section
       'blog': 'Blog',

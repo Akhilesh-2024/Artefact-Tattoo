@@ -6,7 +6,8 @@ import {
   Video, Building, ChevronDown, ChevronRight, Edit, Plus,
   List, MessageSquare, Eye, Upload, Globe, Phone, Share2,
   UserCheck, FileImage, PlayCircle, MessageCircle, Zap,
-  Target, Award
+  Target, Award,
+  File
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
@@ -47,7 +48,12 @@ const Sidebar = ({ isOpen, activeTab, onTabChange }) => {
     },
     { id: 'pricing', label: 'Pricing Section', icon: DollarSign },
     { id: 'process', label: 'Process Section', icon: Workflow },
-    { id: 'appointment', label: 'Appointment Form', icon: Calendar },
+    { id: 'appointment', label: 'Appointment Form', icon: Calendar,
+      subItems: [
+        { id: 'appointments', label: 'Appointments', icon: Calendar },
+        { id: 'appointment-content', label: 'Appointment Content', icon: Target }
+      ],
+    },
     {
       id: 'blog',
       label: 'Blog',

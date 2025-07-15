@@ -7,6 +7,8 @@ import navbarRouter from "./navbarRoutes.js";
 import processRouter from "./processRoute.js";
 import serviceRouter from "./serviceRoute.js";
 import pricingRouter from "./priceRoute.js";
+import appointmentContentRouter from "./appointmentContent.js";
+import appointmentBookingRouter from "./appointmentBooking.js";
 
 const router = express.Router();
 
@@ -18,5 +20,7 @@ router.use('/navbar',navbarRouter);
 router.use('/process',processRouter);
 router.use('/service',serviceRouter);
 router.use('/pricing',pricingRouter);
+router.use('/appointment-content', appointmentContentRouter);
+router.use('/appointment-booking', appointmentBookingRouter);
 
 export default router;
