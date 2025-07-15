@@ -1,8 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Clients = () => {
+  const [clients, setClients] = useState([]);
+
+  // Fetch client data
   useEffect(() => {
-    if (typeof window.$ === "undefined") return;
+    const fetchClients = async () => {
+      try {
+        const res = await axios.get("/api/tatto/clients");
+        setClients(res.data);
+      } catch (error) {
+        console.error("Error fetching clients:", error);
+      }
+    };
+
+    fetchClients();
+  }, []);
+
+  // Initialize Owl Carousel after data is loaded
+  useEffect(() => {
+    if (clients.length === 0 || typeof window.$ === "undefined") return;
 
     const $carousel = window.$(".clients-carousel");
 
@@ -30,10 +48,10 @@ const Clients = () => {
 
     const timeout = setTimeout(() => {
       initClientsCarousel();
-    }, 200); // shorter, smoother init delay
+    }, 200); // smooth init
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [clients]);
 
   return (
     <section className="clients">
@@ -41,36 +59,16 @@ const Clients = () => {
         <div className="row">
           <div className="col-md-7">
             <div className="owl-carousel owl-theme clients-carousel">
-              <div className="clients-logo">
-                <a href="#0">
-                  <img src="img/clients/1.png" alt="client-1" />
-                </a>
-              </div>
-              <div className="clients-logo">
-                <a href="#0">
-                  <img src="img/clients/2.png" alt="client-2" />
-                </a>
-              </div>
-              <div className="clients-logo">
-                <a href="#0">
-                  <img src="img/clients/3.png" alt="client-3" />
-                </a>
-              </div>
-              <div className="clients-logo">
-                <a href="#0">
-                  <img src="img/clients/4.png" alt="client-4" />
-                </a>
-              </div>
-              <div className="clients-logo">
-                <a href="#0">
-                  <img src="img/clients/5.png" alt="client-5" />
-                </a>
-              </div>
-              <div className="clients-logo">
-                <a href="#0">
-                  <img src="img/clients/6.png" alt="client-6" />
-                </a>
-              </div>
+              {clients.map((client) => (
+                <div className="clients-logo" key={client._id}>
+                  <a href="#0">
+                    <img
+                      src={`${import.meta.env.VITE_API_URL}${client.img}`}
+                      alt={client.name}
+                    />
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
         </div>

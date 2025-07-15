@@ -14,6 +14,7 @@ import AdminAppointmentBookings from '../Components/AppointmentBookings';
 import AdminBlog from '../Components/AdminBlog';
 import AdminPromo from '../Components/AdminPromo';
 import AdminTestimonials from '../Components/adminTestimonials';
+import AdminClients from '../Components/AdminClients';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -94,7 +95,7 @@ const Dashboard = () => {
 
       // Clients Section
       case 'clients':
-        return <DashboardContent />;
+        return <AdminClients />;
 
       // Footer Section
       case 'footer':
