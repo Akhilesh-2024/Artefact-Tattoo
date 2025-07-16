@@ -33,6 +33,9 @@ setInterval(() => {
     .catch(err => console.error('Ping error:', err.message));
 }, 10 * 60 * 1000); // Every 10 minutes
 
+app.get('/ping', (req, res) => {
+  res.send('Pong');
+});
 
 app.use(express.json());
 // Serve files from both Upload and upload directories to handle case sensitivity
