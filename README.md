@@ -2,7 +2,8 @@
   <img src="https://img.shields.io/badge/Tattoo-Management-E91E63?style=for-the-badge&logo=brush&logoColor=white" alt="Tattoo Management" />
   <h1>🎨 Tattoo Management System 🎨</h1>
   <p><b>A comprehensive web-based application designed to manage tattoo studios, bookings, and customer interactions</b></p>
-  <img src="public/img/dashboard-preview.png" alt="Dashboard Preview" width="80%" style="border-radius: 12px; box-shadow: 0 4px 24px #0002; margin: 20px 0;" />
+  <img src="Frontend/public/Previews/Dashboard.png" alt="Dashboard Preview" width="80%" style="border-radius: 12px; box-shadow: 0 4px 24px #0002; margin: 20px 0;" />
+  <img src="Frontend/public/Previews/Hero Page.png" alt="Hero Page Preview" width="80%" style="border-radius: 12px; box-shadow: 0 4px 24px #0002; margin: 20px 0;" />
 </div>
 
 ---
@@ -37,10 +38,14 @@
 ## 🖼️ Screenshots
 
 <div align="center">
-  <img src="Frontend/public/img/homepage.png" alt="Homepage" width="45%" style="margin: 10px" />
-  <img src="Frontend/public/img/portfolio.png" alt="Portfolio" width="45%" style="margin: 10px" />
-  <img src="Admin/public/img/admin-dashboard.png" alt="Admin Dashboard" width="45%" style="margin: 10px" />
-  <img src="Admin/public/img/bookings.png" alt="Bookings Management" width="45%" style="margin: 10px" />
+  <img src="Frontend/public/Previews/Hero Page.png" alt="Portfolio" width="45%" style="margin: 10px" />
+  <img src="Frontend/public/Previews/Services.png" alt="Admin Dashboard" width="45%" style="margin: 10px" />
+  <img src="Frontend/public/Previews/Portfolio.png" alt="Bookings Management" width="45%" style="margin: 10px" />
+  <img src="Frontend/public/Previews/Testimonials.png" alt="Bookings Management" width="45%" style="margin: 10px" />
+  <img src="Frontend/public/Previews/Login.png" alt="Login" width="45%" style="margin: 10px" />
+  <img src="Frontend/public/Previews/Contact.png" alt="Bookings Management" width="45%" style="margin: 10px" />
+  <img src="Frontend/public/Previews/Gallery.png" alt="Bookings Management" width="45%" style="margin: 10px" />
+  <img src="Frontend/public/Previews/Appointments.png" alt="Bookings Management" width="45%" style="margin: 10px" />
 </div>
 
 ---
@@ -84,7 +89,7 @@
 
 #### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/tattoo-management-system.git
+git clone https://github.com/Akhilesh-2024/Tattoo
 cd tattoo-management-system
 ```
 
@@ -372,18 +377,21 @@ The application uses MongoDB with Mongoose ODM for data persistence. The databas
 ```bash
 cd Backend
 npm run build
+npm run dev
 ```
 
 ### Frontend
 ```bash
 cd Frontend
 npm run build
+npm run dev
 ```
 
 ### Admin
 ```bash
 cd Admin
 npm run build
+npm run dev
 ```
 
 ---
@@ -403,19 +411,13 @@ npm run build
 ## 📬 Contact
 
 <p align="center">
-  <a href="https://github.com/your-username/tattoo-management-system/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=your-username/tattoo-management-system" />
-  </a>
-</p>
-
-<p align="center">
-  <a href="mailto:your-email@example.com">
+  <a href="mailto:akhilesh0222r@gmail.com">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
   </a>
-  <a href="https://github.com/your-username">
+  <a href="https://github.com/Akhilesh-2024">
     <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
   </a>
-  <a href="https://www.linkedin.com/in/your-profile">
+  <a href="https://www.linkedin.com/in/akhilesh2022">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
   </a>
 </p>
