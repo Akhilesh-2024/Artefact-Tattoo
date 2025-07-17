@@ -11,7 +11,8 @@ const Team = () => {
     const fetchTeam = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("/api/tatto/team");
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/team`);
         setTeam(res.data);
       } catch (error) {
         console.error(error);
@@ -51,6 +52,19 @@ const Team = () => {
       }, 200); // slight delay to ensure DOM is ready
     }
   }, [loading, team]);
+
+  useEffect(() => {
+    if (team && window.$) {
+      window.$(".animate-box").each(function () {
+        const el = window.$(this);
+        el.removeClass("animated fadeInLeft fadeInRight fadeInUp fadeInDown");
+        const effect = el.data("animate-effect") || "fadeInUp";
+        setTimeout(() => {
+          el.addClass("animated " + effect);
+        }, 100);
+      });
+    }
+  }, [team]);
 
   return (
     <section className="team section-padding">

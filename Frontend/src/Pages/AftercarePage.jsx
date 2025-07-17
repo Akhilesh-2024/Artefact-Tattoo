@@ -24,7 +24,8 @@ const AftercarePage = () => {
     }, 200);
 
     // Fetch aftercare data
-    axios.get(`${import.meta.env.VITE_API_URL}/api/tatto/aftercare`)
+    const API = import.meta.env.VITE_API_URL;
+    axios.get(`${API}/api/tatto/aftercare`)
       .then((res) => {
         setAftercareData(res.data);
       })

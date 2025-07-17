@@ -25,6 +25,7 @@ app.use(cors({
   credentials: true
 }));
 
+// 🛠 Self-ping setup
 const SELF_URL = process.env.MY_URL;
 
 setInterval(() => {

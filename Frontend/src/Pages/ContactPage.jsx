@@ -19,7 +19,8 @@ const ContactPage = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const res = await axios.get("/api/tatto/contact/content");
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/contact/content`);
         setContactContent(res.data);
       } catch (err) {
         console.error("Failed to load contact content", err);
@@ -55,7 +56,8 @@ const ContactPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/tatto/contact/submit", formData);
+      const API = import.meta.env.VITE_API_URL;
+      await axios.post(`${API}/api/tatto/contact/submit`, formData);
       setFormSuccess(true);
       setFormData({
         name: '',

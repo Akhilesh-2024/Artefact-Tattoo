@@ -22,7 +22,8 @@ const PortfolioPage = () => {
     // Fetch gallery data
     const fetchGallery = async () => {
       try {
-        const res = await axios.get("/api/tatto/gallery");
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/gallery`);
         setGallery(res.data);
       } catch (err) {
         console.error("Failed to load gallery data", err);

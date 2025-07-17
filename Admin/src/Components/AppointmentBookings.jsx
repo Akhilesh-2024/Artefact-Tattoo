@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Search, Filter, Calendar, Clock, User, Phone, Palette, Wrench, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
+import axios from "axios";
 
 const AdminAppointmentBookings = () => {
   const [appointments, setAppointments] = useState([]);
@@ -16,11 +17,9 @@ const AdminAppointmentBookings = () => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        // Using fetch instead of axios - you can replace this with your axios call
-        const response = await fetch("/api/tatto/appointment-booking");
-        const data = await response.json();
-        setAppointments(data);
-        setFilteredAppointments(data);
+        const res = await axios.get(`/api/tatto/appointment-booking`);
+        setAppointments(res.data);
+        setFilteredAppointments(res.data);
       } catch (err) {
         console.error("Failed to load bookings", err);
       }
@@ -71,7 +70,7 @@ const AdminAppointmentBookings = () => {
     // Apply sorting
     filtered.sort((a, b) => {
       let aVal, bVal;
-      
+
       switch (sortBy) {
         case "name":
           aVal = a.name.toLowerCase();
@@ -106,12 +105,11 @@ const AdminAppointmentBookings = () => {
     });
 
     setFilteredAppointments(filtered);
-    setCurrentPage(1); // Reset to first page when filters change
+    setCurrentPage(1);
     setSelectAll(false);
     setSelectedAppointments([]);
   }, [appointments, searchTerm, filterBy, sortBy, sortOrder]);
 
-  // Handle individual selection
   const handleSelectAppointment = (id) => {
     if (selectedAppointments.includes(id)) {
       setSelectedAppointments(selectedAppointments.filter(item => item !== id));
@@ -120,7 +118,6 @@ const AdminAppointmentBookings = () => {
     }
   };
 
-  // Handle select all
   const handleSelectAll = () => {
     if (selectAll) {
       setSelectedAppointments([]);
@@ -131,28 +128,20 @@ const AdminAppointmentBookings = () => {
     setSelectAll(!selectAll);
   };
 
-  // Delete single appointment
   const handleDelete = async (id) => {
     try {
-      // Replace with your actual delete API call
-      await fetch(`/api/tatto/appointment-booking/${id}`, {
-        method: 'DELETE'
-      });
+      await axios.delete(`/api/tatto/appointment-booking/${id}`);
       setAppointments(appointments.filter(item => item._id !== id));
     } catch (err) {
       console.error("Failed to delete appointment", err);
     }
   };
 
-  // Delete selected appointments
   const handleDeleteSelected = async () => {
     try {
-      // Replace with your actual bulk delete API call
       await Promise.all(
-        selectedAppointments.map(id => 
-          fetch(`/api/tatto/appointment-booking/${id}`, {
-            method: 'DELETE'
-          })
+        selectedAppointments.map(id =>
+          axios.delete(`/api/tatto/appointment-booking/${id}`)
         )
       );
       setAppointments(appointments.filter(item => !selectedAppointments.includes(item._id)));
@@ -197,60 +186,35 @@ const AdminAppointmentBookings = () => {
     }
   };
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredAppointments.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentAppointments = filteredAppointments.slice(startIndex, endIndex);
 
-  const goToPage = (page) => {
-    setCurrentPage(page);
-  };
-
-  const goToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+  const goToPage = (page) => setCurrentPage(page);
+  const goToPrevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
+  const goToNextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
 
   const getPageNumbers = () => {
     const pageNumbers = [];
     const maxVisiblePages = 5;
-    
+
     if (totalPages <= maxVisiblePages) {
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-      }
+      for (let i = 1; i <= totalPages; i++) pageNumbers.push(i);
     } else {
       if (currentPage <= 3) {
-        for (let i = 1; i <= 4; i++) {
-          pageNumbers.push(i);
-        }
-        pageNumbers.push('...');
-        pageNumbers.push(totalPages);
+        for (let i = 1; i <= 4; i++) pageNumbers.push(i);
+        pageNumbers.push("...", totalPages);
       } else if (currentPage >= totalPages - 2) {
-        pageNumbers.push(1);
-        pageNumbers.push('...');
-        for (let i = totalPages - 3; i <= totalPages; i++) {
-          pageNumbers.push(i);
-        }
+        pageNumbers.push(1, "...");
+        for (let i = totalPages - 3; i <= totalPages; i++) pageNumbers.push(i);
       } else {
-        pageNumbers.push(1);
-        pageNumbers.push('...');
-        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-          pageNumbers.push(i);
-        }
-        pageNumbers.push('...');
-        pageNumbers.push(totalPages);
+        pageNumbers.push(1, "...");
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pageNumbers.push(i);
+        pageNumbers.push("...", totalPages);
       }
     }
-    
+
     return pageNumbers;
   };
 

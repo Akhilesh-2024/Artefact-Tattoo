@@ -14,7 +14,8 @@ const BlogPage = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get("/api/tatto/blog");
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/blog`);
         setBlogs(res.data.reverse()); // Latest first
       } catch (error) {
         console.error("Failed to load blog posts:", error);

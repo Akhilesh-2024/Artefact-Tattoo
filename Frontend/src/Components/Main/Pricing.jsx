@@ -10,7 +10,8 @@ const Pricing = () => {
     const fetchPricing = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("/api/tatto/pricing");
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/pricing`);
         const data = res.data;
 
         setItems(data?.items || []);

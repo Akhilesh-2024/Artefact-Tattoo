@@ -9,7 +9,8 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get("/api/tatto/blog");
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/blog`);
         setBlogs(res.data);
       } catch (error) {
         console.error("Error fetching blog posts:", error);

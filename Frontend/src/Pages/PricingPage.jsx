@@ -13,9 +13,10 @@ const PricingPage = () => {
     // Fetch pricing data
     const fetchPricing = async () => {
       try {
-        const res = await axios.get("/api/tatto/pricing");
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/pricing`);
         setPricingItems(res.data.items || []);
-        setBgImage(`${import.meta.env.VITE_API_URL}${res.data.img}`);
+        setBgImage(`${API}${res.data.img}`);
       } catch (error) {
         console.error("Failed to load pricing data:", error);
       }

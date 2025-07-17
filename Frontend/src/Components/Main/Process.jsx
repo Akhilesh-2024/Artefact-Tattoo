@@ -8,7 +8,8 @@ const Process = () => {
   useEffect(() => {
     const fetchProcess = async () => {
       try {
-        const res = await axios.get("/api/tatto/process");
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/process`);
         if (Array.isArray(res.data)) {
           setProcessData(res.data[0]);
         } else {
@@ -49,6 +50,14 @@ const Process = () => {
           });
         });
       }
+      window.$(".animate-box").each(function () {
+      const el = window.$(this);
+      el.removeClass("animated fadeInLeft fadeInRight fadeInUp fadeInDown");
+      const effect = el.data("animate-effect");
+      setTimeout(() => {
+        el.addClass("animated " + effect);
+      }, 100); // Small delay ensures class is removed before re-adding
+    });
     }
   }, [processData]);
 

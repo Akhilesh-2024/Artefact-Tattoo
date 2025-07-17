@@ -99,7 +99,8 @@ const AppointmentForm = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const res = await axios.get("/api/tatto/appointment-content");
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/appointment-content`);
         setContent(res.data);
       } catch (error) {
         console.error("Failed to fetch appointment content", error);
@@ -165,7 +166,8 @@ const AppointmentForm = () => {
         date: formData.date.toISOString(),
       };
 
-      const response = await axios.post("/api/tatto/appointment-booking", payload);
+      const API = import.meta.env.VITE_API_URL;
+      const response = await axios.post(`${API}/api/tatto/appointment-booking`, payload);
       setMessage("Appointment booked successfully!");
       setFormData({
         name: "",

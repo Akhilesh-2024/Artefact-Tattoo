@@ -37,7 +37,7 @@ export const saveOrUpdateHero = async (req, res) => {
         subheading,
         buttonText: buttonText || "",
         buttonLink: buttonLink || "",
-        background: req.file ? `/upload/hero/${req.file.filename}` : null,
+        background: req.file ? `/Upload/hero/${req.file.filename}` : null,
       });
     } else {
       hero.headingLine1 = headingLine1;
@@ -53,13 +53,11 @@ export const saveOrUpdateHero = async (req, res) => {
           
           // Try both capitalized and lowercase paths
           const oldPathUpper = path.join(process.cwd(), "src", "Upload", "hero", filename);
-          const oldPathLower = path.join(process.cwd(), "src", "upload", "hero", filename);
           
           // Delete the file if it exists in either location
           if (fs.existsSync(oldPathUpper)) fs.unlinkSync(oldPathUpper);
-          if (fs.existsSync(oldPathLower)) fs.unlinkSync(oldPathLower);
         }
-        hero.background = `/upload/hero/${req.file.filename}`;
+        hero.background = `/Upload/hero/${req.file.filename}`;
       }
     }
 

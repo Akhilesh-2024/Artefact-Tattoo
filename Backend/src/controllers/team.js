@@ -15,7 +15,7 @@ export const teamGet = async(req,res) => {
 export const teamPost = async(req,res) => {
   try {
     const {name, subname, img, info} = req.body;
-    const imagePath = req.file ? `/upload/team/${req.file.filename}` : img;
+    const imagePath = req.file ? `/upload/Team/${req.file.filename}` : img;
     const add = new team({
       img: imagePath,
       name: name,
@@ -74,7 +74,7 @@ export const teamEdit = async (req, res) => {
         }
       }
 
-      updatedImagePath = `/upload/team/${req.file.filename}`;
+      updatedImagePath = `/upload/Team/${req.file.filename}`;
     }
 
     existingMember.name = name;

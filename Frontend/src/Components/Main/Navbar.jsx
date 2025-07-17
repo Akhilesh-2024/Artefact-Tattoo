@@ -12,7 +12,8 @@ const Navbar = () => {
   useEffect(() => {
     const fetchNavbar = async () => {
       try {
-        const response = await axios.get("/api/tatto/navbar");
+        const API = import.meta.env.VITE_API_URL;
+        const response = await axios.get(`${API}/api/tatto/navbar`);
         setNavbarData(response.data);
         setLoading(false);
       } catch (err) {

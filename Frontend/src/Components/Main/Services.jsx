@@ -6,10 +6,25 @@ const Services = () => {
   const baseURL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    axios.get("/api/tatto/service")
-      .then(res => setServices(res.data))
-      .catch(err => console.error("Failed to fetch services", err));
+    const API = import.meta.env.VITE_API_URL;
+    axios
+      .get(`${API}/api/tatto/service`)
+      .then((res) => setServices(res.data))
+      .catch((err) => console.error("Failed to fetch services", err));
   }, []);
+
+  useEffect(() => {
+    if (services.length > 0 && window.$) {
+      window.$(".animate-box").each(function () {
+        const el = window.$(this);
+        el.removeClass("animated fadeInLeft fadeInRight fadeInUp fadeInDown");
+        const effect = el.data("animate-effect") || "fadeInUp";
+        setTimeout(() => {
+          el.addClass("animated " + effect);
+        }, 100);
+      });
+    }
+  }, [services]);
 
   return (
     <section className="services section-padding">
@@ -25,12 +40,21 @@ const Services = () => {
           <div className="row mb-30" key={service._id}>
             {index % 2 === 0 ? (
               <>
-                <div className="col-md-6 animate-box" data-animate-effect="fadeInLeft">
+                <div
+                  className="col-md-6 animate-box"
+                  data-animate-effect="fadeInLeft"
+                >
                   <div className="img left">
-                    <img src={`${baseURL}/uploads/service/${service.img}`} alt={service.title} />
+                    <img
+                      src={`${baseURL}/uploads/service/${service.img}`}
+                      alt={service.title}
+                    />
                   </div>
                 </div>
-                <div className="col-md-6 valign animate-box" data-animate-effect="fadeInRight">
+                <div
+                  className="col-md-6 valign animate-box"
+                  data-animate-effect="fadeInRight"
+                >
                   <div className="content">
                     <div className="date">
                       <h1>{String(service.order).padStart(2, "0")}</h1>
@@ -38,7 +62,10 @@ const Services = () => {
                     <div className="cont">
                       <h5>{service.title}</h5>
                       <p>{service.description}</p>
-                      <a href="/services-page.html" className="btn-curve btn-1 mt-10">
+                      <a
+                        href="/services-page.html"
+                        className="btn-curve btn-1 mt-10"
+                      >
                         <span>Read More</span>
                       </a>
                     </div>
@@ -47,7 +74,10 @@ const Services = () => {
               </>
             ) : (
               <>
-                <div className="col-md-6 order2 valign animate-box" data-animate-effect="fadeInLeft">
+                <div
+                  className="col-md-6 order2 valign animate-box"
+                  data-animate-effect="fadeInLeft"
+                >
                   <div className="content">
                     <div className="date">
                       <h1>{String(service.order).padStart(2, "0")}</h1>
@@ -55,15 +85,24 @@ const Services = () => {
                     <div className="cont">
                       <h5>{service.title}</h5>
                       <p>{service.description}</p>
-                      <a href="/services-page.html" className="btn-curve btn-1 mt-10">
+                      <a
+                        href="/services-page.html"
+                        className="btn-curve btn-1 mt-10"
+                      >
                         <span>Read More</span>
                       </a>
                     </div>
                   </div>
                 </div>
-                <div className="col-md-6 order1 animate-box" data-animate-effect="fadeInRight">
+                <div
+                  className="col-md-6 order1 animate-box"
+                  data-animate-effect="fadeInRight"
+                >
                   <div className="img left">
-                    <img src={`${baseURL}/uploads/service/${service.img}`} alt={service.title} />
+                    <img
+                      src={`${baseURL}/uploads/service/${service.img}`}
+                      alt={service.title}
+                    />
                   </div>
                 </div>
               </>

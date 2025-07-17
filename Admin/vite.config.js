@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  base: "/",
   server:{
     proxy:{
       '/api':{
@@ -13,5 +14,8 @@ export default defineConfig({
         secure:false,
       }
     }
+  },
+  build: {
+    chunkSizeWarningLimit: 1000 // in KB
   }
 });

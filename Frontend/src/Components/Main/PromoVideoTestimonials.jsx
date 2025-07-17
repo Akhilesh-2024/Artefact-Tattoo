@@ -9,9 +9,10 @@ const PromoVideoTestimonials = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const API = import.meta.env.VITE_API_URL;
         const [promoRes, testimonialsRes] = await Promise.all([
-          axios.get("/api/tatto/promo"),
-          axios.get("/api/tatto/testimonials"),
+          axios.get(`${API}/api/tatto/promo`),
+          axios.get(`${API}/api/tatto/testimonials`),
         ]);
         setPromo(promoRes.data);
         setTestimonials(testimonialsRes.data);

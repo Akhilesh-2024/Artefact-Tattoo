@@ -21,7 +21,8 @@ const FaqsPage = () => {
   // Fetch FAQs from backend
   const fetchFaqs = async () => {
     try {
-      const res = await axios.get("/api/tatto/faqs");
+      const API = import.meta.env.VITE_API_URL;
+      const res = await axios.get(`${API}/api/tatto/faqs`);
       setFaqs(res.data);
     } catch (err) {
       console.error("Failed to load FAQs:", err);

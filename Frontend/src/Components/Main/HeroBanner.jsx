@@ -16,7 +16,8 @@ const HeroBanner = () => {
   useEffect(() => {
     const fetchHero = async () => {
       try {
-        const res = await axios.get('/api/tatto/hero');
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/hero`);
         const hero = res.data;
         
         setHeroData({

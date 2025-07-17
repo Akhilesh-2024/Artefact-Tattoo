@@ -9,7 +9,8 @@ const Footer = () => {
   useEffect(() => {
     const fetchFooterData = async () => {
       try {
-        const res = await axios.get("/api/tatto/footer");
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/footer`);
         setFooterData(res.data);
       } catch (err) {
         console.error("Failed to load footer data", err);
@@ -24,7 +25,8 @@ const Footer = () => {
     if (!emailInput) return;
 
     try {
-      const res = await axios.post("/api/tatto/subscribe", { email: emailInput });
+      const API = import.meta.env.VITE_API_URL;
+      const res = await axios.post(`${API}/api/tatto/subscribe`, { email: emailInput });
       setSubscribeMessage(res.data.message || "Subscribed successfully!");
       setEmailInput("");
     } catch (err) {

@@ -14,7 +14,8 @@ const TeamPage = () => {
     const fetchTeam = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('/api/tatto/team');
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/team`);
         setTeam(res.data);
       } catch (error) {
         console.error("Error fetching team:", error);

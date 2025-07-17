@@ -14,7 +14,7 @@ export const getTestimonials = async (req, res) => {
 export const postTestimonial = async (req, res) => {
   try {
     const { name, role, message } = req.body;
-    const img = req.file ? `/upload/testimonials/${req.file.filename}` : "";
+    const img = req.file ? `/Upload/testimonials/${req.file.filename}` : "";
 
     const newTestimonial = new Testimonial({ name, role, message, img });
     await newTestimonial.save();
@@ -56,7 +56,7 @@ export const updateTestimonial = async (req, res) => {
       if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
     }
 
-    const img = req.file ? `/upload/testimonials/${req.file.filename}` : existing.img;
+    const img = req.file ? `/Upload/testimonials/${req.file.filename}` : existing.img;
 
     existing.name = name;
     existing.role = role;

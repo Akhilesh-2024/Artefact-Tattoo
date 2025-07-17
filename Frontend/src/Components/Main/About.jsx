@@ -8,7 +8,8 @@ const About = () => {
   useEffect(() => {
     const fetchAbout = async () => {
       try {
-        const res = await axios.get("/api/tatto/about");
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/about`);
         setAboutData(res.data);
       } catch (err) {
         console.error("Error fetching about data", err);
@@ -19,6 +20,19 @@ const About = () => {
 
     fetchAbout();
   }, []);
+
+  useEffect(() => {
+    if (aboutData && window.$) {
+      window.$(".animate-box").each(function () {
+        const el = window.$(this);
+        el.removeClass("animated fadeInLeft fadeInRight fadeInUp fadeInDown");
+        const effect = el.data("animate-effect") || "fadeInUp";
+        setTimeout(() => {
+          el.addClass("animated " + effect);
+        }, 100);
+      });
+    }
+  }, [aboutData]);
 
   if (loading) {
     return (
@@ -67,9 +81,9 @@ const About = () => {
             data-animate-effect="fadeInRight"
           >
             <img
-                src={`${import.meta.env.VITE_API_URL}${aboutData.img}`}
-                alt="About"
-              />
+              src={`${import.meta.env.VITE_API_URL}${aboutData.img}`}
+              alt="About"
+            />
           </div>
         </div>
       </div>

@@ -5,18 +5,18 @@ import { admin } from "../models/adminModel.js";
 
 dotenv.config();
 
-const updateAdminSchema = async () => {
+export const updateAdminSchema = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URL);
-    const existingAdmin = await admin.findOne({ username: "admin@gmail.com" });
+    const existingAdmin = await admin.findOne({ username: process.env.EMAIL_ADDRESS });
 
     if (existingAdmin) {
       existingAdmin.role = "admin";
       await existingAdmin.save();
     } else {
-      const hashedPassword = await bcrypt.hash("admin123", 10);
+      const hashedPassword = await bcrypt.hash(process.env.PASSWORD, 10);
       const newAdmin = new admin({
-        username: "admin@gmail.com",
+        username: process.env.EMAIL_ADDRES,
         password: hashedPassword,
         role: "admin",
       });

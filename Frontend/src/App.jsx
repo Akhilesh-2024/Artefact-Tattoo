@@ -19,6 +19,7 @@ import Preloader from "./Components/Main/Preloader";
 import Footer from "./Components/Main/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ScrollAndScripts from './Components/ScrollAndScripts';
+import AddTestimonial from './Pages/Testimonials';
 
 const App = () => {
   // State to track if the app has been initialized
@@ -64,6 +65,7 @@ const App = () => {
         <Route path="/team-details" element={<TeamDetailsPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/post" element={<PostPage />} />
+        <Route path="/testimonials" element={<AddTestimonial />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/faqs" element={<FaqsPage />} />
         <Route path="/aftercare" element={<AftercarePage />} />
