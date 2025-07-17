@@ -4,3 +4,8 @@ Admin/.env"backend/.env"
 "backend/.env" 
 "Backend/.env" 
 package-lock.json
+./node_modules/
+dist/
+Frontend/node_modules/
+Backend/node_modules/
+Admin/node_modules/
