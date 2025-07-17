@@ -89,7 +89,7 @@
 
 #### 1. Clone the repository
 ```bash
-git clone https://github.com/Akhilesh-2024/Tattoo
+git clone https://github.com/Akhilesh-2024/Artefact-Tattoo
 cd tattoo-management-system
 ```
 
