@@ -79,7 +79,7 @@ const ContactPage = () => {
         ref={bannerRef}
         className="banner-header full-height section-padding valign bg-img bg-fixed"
         data-overlay-dark="4"
-        data-background="img/slider/10.jpg"
+        data-background="img/update/contact.jpg"
       >
         <div className="container">
           <div className="row">

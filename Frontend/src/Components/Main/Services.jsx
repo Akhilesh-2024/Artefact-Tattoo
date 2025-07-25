@@ -63,7 +63,7 @@ const Services = () => {
                       <h5>{service.title}</h5>
                       <p>{service.description}</p>
                       <a
-                        href="/services-page.html"
+                        href="/services"
                         className="btn-curve btn-1 mt-10"
                       >
                         <span>Read More</span>
@@ -86,7 +86,7 @@ const Services = () => {
                       <h5>{service.title}</h5>
                       <p>{service.description}</p>
                       <a
-                        href="/services-page.html"
+                        href="/services"
                         className="btn-curve btn-1 mt-10"
                       >
                         <span>Read More</span>

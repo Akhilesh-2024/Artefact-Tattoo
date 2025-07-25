@@ -54,7 +54,7 @@ const AboutHeroSection = () => {
       ref={sectionRef}
       className="banner-header full-height valign bg-img bg-fixed" 
       data-overlay-dark="4" 
-      data-background="img/slider/3.jpg"
+      data-background="img/update/about.jpg"
     >
       <div className="container">
         <div className="row">

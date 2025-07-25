@@ -40,7 +40,7 @@ const ServicesPage = () => {
         ref={bannerRef}
         className="banner-header full-height section-padding valign bg-img bg-fixed" 
         data-overlay-dark="4" 
-        data-background="img/slider/4.jpg"
+        data-background="img/update/services.jpg"
       >
         <div className="container">
           <div className="row">

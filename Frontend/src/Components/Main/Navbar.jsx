@@ -42,6 +42,14 @@ const Navbar = () => {
     }
   }, [location, loading, error]);
 
+  // Close mobile navbar when link clicked
+  const handleLinkClick = () => {
+    const navbarCollapse = document.getElementById("navbarContent");
+    if (navbarCollapse && navbarCollapse.classList.contains("show")) {
+      navbarCollapse.classList.remove("show");
+    }
+  };
+
   // Render dropdown menu
   const renderDropdown = (navItem) => {
     return (
@@ -93,6 +101,7 @@ const Navbar = () => {
                           className={`dropdown-item ${
                             location.pathname === child.path ? "active" : ""
                           }`}
+                          onClick={handleLinkClick}
                         >
                           {child.label}
                         </Link>
@@ -106,6 +115,7 @@ const Navbar = () => {
                   className={`dropdown-item ${
                     location.pathname === subItem.path ? "active" : ""
                   }`}
+                  onClick={handleLinkClick}
                 >
                   {subItem.label}
                 </Link>
@@ -136,7 +146,7 @@ const Navbar = () => {
       <div className="container">
         {/* Logo */}
         <div className="logo-wrapper">
-          <Link className="logo" to="/">
+          <Link className="logo" to="/" onClick={handleLinkClick}>
             <img
               src={getFullLogoUrl(navbarData.logo)}
               className="logo-img"
@@ -177,6 +187,7 @@ const Navbar = () => {
                       location.pathname === navItem.path ? "active" : ""
                     }`}
                     to={navItem.path}
+                    onClick={handleLinkClick}
                   >
                     {navItem.label}
                   </Link>

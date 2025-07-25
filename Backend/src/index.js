@@ -38,6 +38,7 @@ app.get('/ping', (req, res) => {
   res.send('Pong');
 });
 
+
 app.use(express.json());
 // Serve files from both Upload and upload directories to handle case sensitivity
 app.use("/upload", express.static(path.join(__dirname, "Upload")));

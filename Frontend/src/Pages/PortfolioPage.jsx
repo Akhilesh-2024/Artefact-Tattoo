@@ -77,7 +77,7 @@ const PortfolioPage = () => {
         ref={bannerRef}
         className="banner-header full-height section-padding valign bg-img bg-fixed"
         data-overlay-dark="4"
-        data-background="img/slider/6.jpg"
+        data-background="img/update/gallery.jpg"
       >
         <div className="container">
           <div className="row">

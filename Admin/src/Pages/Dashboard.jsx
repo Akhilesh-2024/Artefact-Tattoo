@@ -22,6 +22,7 @@ import AdminFaqsPanel from '../Components/AdminFaqs';
 import AdminAftercare from '../Components/AfterCare';
 import AdminContactInbox from '../Components/AdminContactInbox';
 import AdminContactContent from '../Components/AdminContactContent';
+import AdminThemePanel from '../Components/AdminThemePanel';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -42,6 +43,10 @@ const Dashboard = () => {
     switch (activeTab) {
       case 'dashboard':
         return <DashboardContent />;
+
+      case 'theme':
+        return <AdminThemePanel />;
+
       // Navbar Section
       case 'navbar':
         return <AdminNavbar />;
@@ -136,6 +141,9 @@ const Dashboard = () => {
   const getPageTitle = () => {
     const titleMap = {
       'dashboard': 'Dashboard',
+
+      'theme': 'Theme',
+      
       // Navbar
       'navbar': 'Navbar',
 

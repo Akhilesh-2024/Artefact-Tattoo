@@ -59,7 +59,7 @@ const BlogPage = () => {
         ref={bannerRef}
         className="banner-header section-padding valign bg-img bg-fixed"
         data-overlay-dark="2"
-        data-background="img/slider/1.jpg"
+        data-background="img/update/blog.jpg"
       >
         <div className="container">
           <div className="row">

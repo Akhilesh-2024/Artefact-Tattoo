@@ -187,7 +187,7 @@ const AppointmentForm = () => {
   };
 
   return (
-    <section className="appointment">
+    <section className="appointment" id="appointment">
       <div ref={sectionRef} className="background bg-img bg-fixed section-padding" data-overlay-dark={3}>
         <div className="container">
           <div className="row justify-content-center">

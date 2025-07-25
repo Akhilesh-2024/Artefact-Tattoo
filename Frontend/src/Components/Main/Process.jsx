@@ -25,41 +25,44 @@ const Process = () => {
     fetchProcess();
   }, []);
 
-  // Re-initialize accordion when processData changes
-  useEffect(() => {
-    if (processData && window.$) {
-      // Initialize accordion functionality
-      const accrodionGrp = window.$(".accrodion-grp");
-      if (accrodionGrp.length) {
-        accrodionGrp.each(function() {
-          const accrodionName = window.$(this).data("grp-name");
-          const Self = window.$(this);
-          const accordion = Self.find(".accrodion");
-          Self.addClass(accrodionName);
-          Self.find(".accrodion .accrodion-content").hide();
-          Self.find(".accrodion.active").find(".accrodion-content").show();
-          accordion.each(function() {
-            window.$(this).find(".accrodion-title").on("click", function() {
-              if (window.$(this).parent().hasClass("active") === false) {
-                window.$(".accrodion-grp." + accrodionName).find(".accrodion").removeClass("active");
-                window.$(".accrodion-grp." + accrodionName).find(".accrodion").find(".accrodion-content").slideUp();
-                window.$(this).parent().addClass("active");
-                window.$(this).parent().find(".accrodion-content").slideDown();
+    useEffect(() => {
+      if (processData && window.$) {
+        const $ = window.$;
+
+        // Animate elements
+        $(".animate-box").each(function () {
+          const $el = $(this);
+          const effect = $el.data("animate-effect");
+          $el.removeClass("animated fadeInLeft fadeInRight fadeInUp fadeInDown");
+          setTimeout(() => {
+            $el.addClass(`animated ${effect}`);
+          }, 100);
+        });
+
+        // Accordion logic
+        const $accordionGrp = $(".accrodion-grp");
+        if ($accordionGrp.length) {
+          $accordionGrp.each(function () {
+            const $self = $(this);
+            const accName = $self.data("grp-name");
+            $self.addClass(accName);
+
+            $self.find(".accrodion .accrodion-content").hide();
+            $self.find(".accrodion.active").find(".accrodion-content").show();
+
+            $self.find(".accrodion-title").on("click", function () {
+              const $parent = $(this).parent();
+              if (!$parent.hasClass("active")) {
+                $(`.accrodion-grp.${accName} .accrodion`).removeClass("active");
+                $(`.accrodion-grp.${accName} .accrodion-content`).slideUp();
+                $parent.addClass("active");
+                $parent.find(".accrodion-content").slideDown();
               }
             });
           });
-        });
+        }
       }
-      window.$(".animate-box").each(function () {
-      const el = window.$(this);
-      el.removeClass("animated fadeInLeft fadeInRight fadeInUp fadeInDown");
-      const effect = el.data("animate-effect");
-      setTimeout(() => {
-        el.addClass("animated " + effect);
-      }, 100); // Small delay ensures class is removed before re-adding
-    });
-    }
-  }, [processData]);
+    }, [processData]);
 
   if (loading || !processData) {
     return <div className="text-center py-10">Loading...</div>;
@@ -105,11 +108,16 @@ const Process = () => {
             className="col-md-6 offset-md-1 mt-30 animate-box"
             data-animate-effect="fadeInRight"
           >
-            <div className="accrodion-grp" data-grp-name="process-faq-one-accrodion">
+            <div
+              className="accrodion-grp"
+              data-grp-name="process-faq-one-accrodion"
+            >
               {processData.steps?.map((step, idx) => (
                 <div
                   key={idx}
-                  className={`accrodion ${idx === 0 ? "active" : ""} ${idx === processData.steps.length - 1 ? "last-chiled" : ""}`}
+                  className={`accrodion ${idx === 0 ? "active" : ""} ${
+                    idx === processData.steps.length - 1 ? "last-chiled" : ""
+                  }`}
                 >
                   <div className="accrodion-title">
                     <h4>

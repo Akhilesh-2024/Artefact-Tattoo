@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import axios from "axios"; // Add Axios import
 import Navbar from "./Components/Main/Navbar";
 import AboutPage from "./Pages/About";
 import IndexPage from "./Pages/IndexPage";
@@ -18,35 +19,69 @@ import ComingSoonPage from "./Pages/ComingSoonPage";
 import Preloader from "./Components/Main/Preloader";
 import Footer from "./Components/Main/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ScrollAndScripts from './Components/ScrollAndScripts';
-import AddTestimonial from './Pages/Testimonials';
+import ScrollAndScripts from "./Components/ScrollAndScripts";
+import AddTestimonial from "./Pages/Testimonials";
 
 const App = () => {
-  // State to track if the app has been initialized
   const [initialized, setInitialized] = useState(false);
-  
-  // Initialize scripts on first load
+
+  // ------------------------
+  // Apply theme dynamically
+  // ------------------------
+  const applyThemeToRoot = (themeObj) => {
+    const root = document.documentElement;
+    Object.entries(themeObj).forEach(([key, value]) => {
+      const cssVar = `--${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
+      root.style.setProperty(cssVar, value);
+    });
+  };
+
   useEffect(() => {
-    // Set a flag in localStorage to track page refreshes
-    const isFirstLoad = !localStorage.getItem('app_initialized');
+    const fetchTheme = async () => {
+      try {
+        const API = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API}/api/tatto/theme`);
+        applyThemeToRoot(res.data);
+      } catch (err) {
+        console.error("Error fetching theme data", err);
+      }
+    };
+
+    fetchTheme();
+  }, []);
+
+  // ------------------------
+  // Existing initialization
+  // ------------------------
+  useEffect(() => {
+    const isFirstLoad = !localStorage.getItem("app_initialized");
     if (isFirstLoad) {
-      localStorage.setItem('app_initialized', 'true');
+      localStorage.setItem("app_initialized", "true");
     }
-    
-    // Call the global initialization function if it exists
-    if (typeof window.initPageScripts === 'function') {
-      // Add a slight delay for the first initialization
-      setTimeout(() => {
-        window.initPageScripts(window.location.pathname);
-        setInitialized(true);
-      }, isFirstLoad ? 300 : 100);
+
+    if (typeof window.initPageScripts === "function") {
+      setTimeout(
+        () => {
+          window.initPageScripts(window.location.pathname);
+          setInitialized(true);
+        },
+        isFirstLoad ? 300 : 100
+      );
     } else {
       setInitialized(true);
     }
-    
-    // Cleanup function
+
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "/js/custom.js";
+    script.async = true;
+    document.body.appendChild(script);
+
     return () => {
-      // Cleanup code if needed
+      document.body.removeChild(script);
     };
   }, []);
 

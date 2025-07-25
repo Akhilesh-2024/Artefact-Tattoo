@@ -107,7 +107,7 @@ const Team = () => {
                       <div className="name">{member.name}</div>
                       <div className="subname">{member.subname}</div>
                       <p>{member.info}</p>
-                      <a href={`/team-details/${member._id}`} className="btn-curve btn-1 mt-10">
+                      <a href={`/team-details`} className="btn-curve btn-1 mt-10">
                         <span>View Details</span>
                       </a>
                     </div>

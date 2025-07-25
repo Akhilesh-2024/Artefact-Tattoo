@@ -19,6 +19,7 @@ import galleryRoute from "./galleryRoute.js";
 import faqRouter from "./FaqRoutes.js";
 import aftercareRouter from "./aftercareRoute.js";
 import contactRouter from "./contactRoutes.js";
+import themeRouter from "./themeRoute.js";
 
 const router = express.Router();
 
@@ -42,5 +43,6 @@ router.use('/gallery', galleryRoute);
 router.use('/faqs', faqRouter);
 router.use('/aftercare', aftercareRouter);
 router.use('/contact', contactRouter);
+router.use('/theme', themeRouter);
 
 export default router;
